@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 11 – At Home | Bài giảng điện tử</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    background:linear-gradient(180deg,#f5faff 0%,#eaf3fd 100%);
+    color:#1f3552;font-size:17px;line-height:1.62;
+    padding-bottom:84px;
+  }
+  /* ---------- TOP BAR ---------- */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);
+    backdrop-filter:blur(8px);border-bottom:2px solid #d6e9fb;box-shadow:0 2px 12px rgba(44,108,176,.07)}
+  .brand{display:flex;align-items:center;gap:9px;padding:11px 16px 3px;font-weight:800;color:#2c6cb0;font-size:18px}
+  .brand .dot{width:12px;height:12px;border-radius:50%;background:#4a90d9;flex:0 0 auto}
+  #nav{display:flex;gap:8px;overflow-x:auto;padding:7px 12px 11px;scrollbar-width:thin}
+  #nav::-webkit-scrollbar{height:6px}
+  #nav::-webkit-scrollbar-thumb{background:#cfe4f8;border-radius:3px}
+  .navbtn{white-space:nowrap;border:1.5px solid #cfe4f8;background:#f2f8ff;color:#2c6cb0;
+    border-radius:999px;padding:7px 15px;font-size:14.5px;font-weight:700;cursor:pointer;transition:.15s;font-family:inherit}
+  .navbtn:hover{background:#e2efff}
+  .navbtn.active{background:#4a90d9;color:#fff;border-color:#4a90d9;box-shadow:0 3px 10px rgba(74,144,217,.35)}
+  /* ---------- LAYOUT ---------- */
+  main{max-width:1080px;margin:0 auto;padding:18px 14px 24px}
+  .slide{display:none;animation:fade .28s ease}
+  .slide.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  h1{font-size:clamp(24px,4vw,36px);color:#2c6cb0;margin:.2em 0 .1em;line-height:1.2}
+  h2{font-size:clamp(20px,3vw,28px);color:#2c6cb0;margin:.1em 0 .5em;line-height:1.25}
+  h3{font-size:19px;color:#2c6cb0;margin:1.1em 0 .5em}
+  p{margin:.5em 0}
+  .sub{color:#5b7ea6;font-size:17px;font-weight:600}
+  .card{background:#fff;border-radius:18px;padding:18px 18px;border:1px solid #e2eefb;
+    box-shadow:0 5px 18px rgba(74,144,217,.10);margin:14px 0}
+  .card.tint{background:#f7fbff}
+  .note{background:#fff8e6;border-left:5px solid #f0b429;border-radius:0 12px 12px 0;padding:12px 15px;margin:12px 0}
+  .note b{color:#a9761a}
+  .vn{color:#2c6cb0;background:#eaf3fd;border-radius:10px;padding:8px 12px;display:block;margin:8px 0;font-size:16px}
+  .muted{color:#6b88a8;font-size:15px}
+  ul.clean{margin:.4em 0;padding-left:1.25em}
+  ul.clean li{margin:.32em 0}
+  /* ---------- BUTTONS ---------- */
+  .btn{font-family:inherit;font-size:16px;font-weight:700;border-radius:12px;padding:11px 20px;
+    border:2px solid #cfe4f8;background:#fff;color:#2c6cb0;cursor:pointer;transition:.15s}
+  .btn:hover:not(:disabled){background:#f0f7ff;border-color:#4a90d9}
+  .btn.primary{background:#4a90d9;color:#fff;border-color:#4a90d9;box-shadow:0 4px 12px rgba(74,144,217,.32)}
+  .btn.primary:hover:not(:disabled){background:#3d80c6;border-color:#3d80c6}
+  .btn.big{font-size:18px;padding:14px 30px;border-radius:14px}
+  .btn.small{font-size:14px;padding:7px 14px;border-radius:10px}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .center{text-align:center}
+  /* ---------- BOTTOM BAR ---------- */
+  .bottombar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.98);
+    border-top:2px solid #d6e9fb;display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:10px 10px;box-shadow:0 -3px 16px rgba(44,108,176,.09);flex-wrap:nowrap}
+  .bottombar .btn{padding:9px 15px;font-size:15px;white-space:nowrap}
+  #progress{font-size:14px;font-weight:700;color:#5b7ea6;min-width:82px;text-align:center}
+  /* ---------- SVG ILLUSTRATIONS ---------- */
+  .ill{width:100%;height:auto;display:block;border-radius:12px}
+  .cross{width:100%;height:auto;display:block;background:#f7fbff;border-radius:14px}
+  .marker{cursor:pointer}
+  .marker circle{transition:fill .18s}
+  .marker:hover circle{fill:#2c6cb0}
+  .marker.sel circle{fill:#f0b429;stroke:#fff}
+  .marker.static{cursor:default;pointer-events:none}
+  /* ---------- HOUSE CARDS (SECTION 3) ---------- */
+  .house-grid{display:grid;gap:15px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));margin-top:12px}
+  .house-card{background:#fff;border:2px solid #e2eefb;border-radius:16px;padding:12px;cursor:pointer;
+    transition:.18s;box-shadow:0 3px 12px rgba(74,144,217,.08)}
+  .house-card:hover{border-color:#9ecdf5;transform:translateY(-3px);box-shadow:0 8px 20px rgba(74,144,217,.18)}
+  .house-card.open{border-color:#4a90d9}
+  .house-name{font-weight:800;color:#2c6cb0;font-size:17px;margin-top:9px}
+  .house-vi{font-size:15px;color:#5b7ea6;font-weight:600}
+  .house-more{margin-top:9px;border-top:1px dashed #cfe4f8;padding-top:9px;font-size:15.5px}
+  .house-more p{margin:.35em 0}
+  .tip{background:#eaf7f0;border-radius:10px;padding:8px 11px;font-size:15px;color:#1c6b47}
+  .hint{font-size:13.5px;color:#8aa7c4;margin-top:8px;font-style:italic}
+  /* ---------- OBJECT CARDS (SECTION 5) ---------- */
+  .obj-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));margin-top:12px}
+  .obj-card{background:#fff;border:2px solid #e2eefb;border-radius:16px;padding:11px;text-align:center;
+    box-shadow:0 3px 12px rgba(74,144,217,.08);transition:.18s}
+  .obj-card:hover{border-color:#9ecdf5;transform:translateY(-3px)}
+  .obj-card .en{font-weight:800;color:#2c6cb0;font-size:16.5px;margin-top:7px}
+  .obj-card .vi{font-size:15px;color:#2e9e6b;font-weight:700}
+  .obj-card .use{font-size:14px;color:#6b88a8;margin-top:5px;line-height:1.45}
+  .hide-vi .vi{filter:blur(6px);cursor:pointer;user-select:none}
+  .hide-vi .vi:hover{filter:blur(0)}
+  /* ---------- QUIZ ---------- */
+  .quiz-top{font-size:14.5px;font-weight:800;color:#4a90d9;letter-spacing:.3px;margin-bottom:8px}
+  .quiz-question{font-size:19px;font-weight:700;color:#1f3552;margin-bottom:6px}
+  .opts{margin:10px 0}
+  .opt{display:block;width:100%;text-align:left;padding:12px 15px;margin:8px 0;border-radius:13px;
+    border:2px solid #cfe4f8;background:#fff;font-size:16.5px;font-family:inherit;color:#1f3552;
+    cursor:pointer;transition:.15s;line-height:1.45}
+  .opt:hover:not(:disabled){border-color:#4a90d9;background:#f4f9ff}
+  .opt:disabled{cursor:default;opacity:1}
+  .opt.correct{background:#e4f7ed;border-color:#2e9e6b;color:#1c6b47;font-weight:700}
+  .opt.wrong{background:#fdeaea;border-color:#d9534f;color:#a13a37;font-weight:700}
+  .fb{border-radius:12px;padding:12px 14px;margin-top:8px;font-size:15.5px;line-height:1.55}
+  .fb.good{background:#e4f7ed;color:#1c6b47;border-left:5px solid #2e9e6b}
+  .fb.bad{background:#fdeaea;color:#a13a37;border-left:5px solid #d9534f}
+  .quiz-actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .result-box{text-align:center;padding:22px 14px}
+  .result-emoji{font-size:44px;line-height:1}
+  .score-big{font-size:34px;font-weight:800;color:#4a90d9}
+  /* ---------- EXERCISES ---------- */
+  .ex-item{background:#fff;border:1px solid #e2eefb;border-radius:14px;padding:12px 14px;margin:9px 0;
+    box-shadow:0 2px 8px rgba(74,144,217,.06)}
+  .ex-item .num{display:inline-block;background:#eaf3fd;color:#2c6cb0;font-weight:800;border-radius:8px;
+    padding:1px 9px;margin-right:7px;font-size:15px}
+  input.gap{font-family:inherit;font-size:16px;border:none;border-bottom:2px solid #4a90d9;
+    background:#f7fbff;border-radius:6px 6px 0 0;padding:6px 10px;width:170px;color:#1f3552;outline:none}
+  input.gap:focus{background:#eaf3fd;border-bottom-color:#f0b429}
+  input.gap.ok{background:#e4f7ed;border-bottom-color:#2e9e6b;color:#1c6b47;font-weight:700}
+  input.gap.no{background:#fdeaea;border-bottom-color:#d9534f;color:#a13a37}
+  input.line, select.line{font-family:inherit;font-size:16px;border:2px solid #cfe4f8;border-radius:10px;
+    padding:8px 12px;width:100%;color:#1f3552;outline:none;background:#fff}
+  input.line:focus, select.line:focus{border-color:#4a90d9;background:#f7fbff}
+  textarea{font-family:inherit;font-size:16px;border:2px solid #cfe4f8;border-radius:12px;padding:10px 12px;
+    width:100%;min-height:80px;resize:vertical;color:#1f3552;outline:none;background:#fff}
+  textarea:focus{border-color:#4a90d9;background:#f7fbff}
+  .sample{background:#eaf3fd;border-left:5px solid #4a90d9;border-radius:0 12px 12px 0;
+    padding:11px 14px;margin-top:9px;font-size:15.5px;color:#20456e}
+  /* ---------- SECTION 4 DETAIL PANEL ---------- */
+  .place-detail{background:#fff;border:2px solid #4a90d9;border-radius:16px;padding:15px 17px;margin-top:14px;
+    box-shadow:0 6px 20px rgba(74,144,217,.18)}
+  .place-detail h3{margin:0 0 4px;font-size:21px}
+  .place-list{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));margin-top:12px}
+  .place-item{background:#fff;border:1px solid #e2eefb;border-left:5px solid #9ecdf5;border-radius:0 12px 12px 0;
+    padding:11px 14px;box-shadow:0 2px 8px rgba(74,144,217,.06)}
+  .place-item b{color:#2c6cb0}
+  .place-item .vi{color:#2e9e6b;font-weight:700;font-size:15.5px}
+  /* ---------- TABLES ---------- */
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:16px;background:#fff;
+    border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(74,144,217,.08)}
+  th{background:#eaf3fd;color:#2c6cb0;text-align:left;padding:10px 12px;font-size:15.5px}
+  td{padding:10px 12px;border-top:1px solid #eef5fc;vertical-align:top}
+  /* ---------- HOME HERO ---------- */
+  .hero{background:linear-gradient(135deg,#eaf3fd 0%,#dcecfa 55%,#cfe4f8 100%);
+    border-radius:22px;padding:22px;border:1px solid #cfe4f8;text-align:center}
+  .hero .ill{max-width:520px;margin:0 auto}
+  .objectives{text-align:left;max-width:640px;margin:16px auto 0;background:#fff;border-radius:16px;
+    padding:16px 20px;box-shadow:0 4px 16px rgba(74,144,217,.12)}
+  .objectives ol{margin:.4em 0;padding-left:1.4em}
+  .objectives li{margin:.35em 0;font-weight:600;color:#20456e}
+  /* ---------- MISC ---------- */
+  .pill{display:inline-block;background:#eaf3fd;color:#2c6cb0;border-radius:999px;padding:3px 13px;
+    font-size:14px;font-weight:800;margin:0 6px 6px 0}
+  .flexrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .divider{height:1px;background:#e2eefb;margin:18px 0}
+  @media(max-width:640px){
+    body{font-size:16px}
+    main{padding:14px 10px 20px}
+    .card{padding:14px 13px;border-radius:14px}
+    .bottombar .btn{padding:8px 11px;font-size:14px}
+    #progress{font-size:12.5px;min-width:66px}
+    input.gap{width:130px}
+    .opt{font-size:15.5px;padding:11px 13px}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><span class="dot"></span> UNIT 11 – AT HOME</div>
+  <nav id="nav"></nav>
+</header>
+
+<main>
+
+<!-- ==================== PHẦN 1: WELCOME ==================== -->
+<section class="slide active" id="s1">
+  <div class="hero">
+    <h1>UNIT 11 – AT HOME</h1>
+    <p class="sub">Types of Houses, Places in the Home and Everyday Objects</p>
+    <div id="heroIll"></div>
+    <div class="objectives">
+      <h3 style="margin-top:0">🎯 Lesson Objectives – Mục tiêu bài học</h3>
+      <ol>
+        <li>Identify different types of houses.</li>
+        <li>Name places in a house.</li>
+        <li>Recognize everyday household objects.</li>
+        <li>Use household vocabulary in context.</li>
+        <li>Complete exercises and answer questions about your home.</li>
+      </ol>
+    </div>
+    <div style="margin-top:20px">
+      <button class="btn primary big" id="startBtn">▶ Start Lesson</button>
+    </div>
+  </div>
+  <div class="card tint">
+    <h3 style="margin-top:0">📘 Nội dung bài học hôm nay</h3>
+    <p><span class="pill">A. Types of houses</span><span class="pill">B. Places in the home</span>
+       <span class="pill">C. Everyday objects</span><span class="pill">Common mistakes: do / make</span>
+       <span class="pill">Exercises 11.1 – 11.5</span><span class="pill">Final Quiz</span></p>
+    <p class="muted">Nhấn <b>Next →</b> ở thanh dưới hoặc chọn phần bất kỳ trên thanh điều hướng để bắt đầu.</p>
+  </div>
+</section>
+
+<!-- ==================== PHẦN 2: WARM-UP ==================== -->
+<section class="slide" id="s2">
+  <h2>2. Warm-up Game – Guess the Word</h2>
+  <p class="muted">Nhìn câu hỏi, chọn đáp án A, B, C hoặc D. Sau khi chọn, em sẽ thấy phản hồi và giải thích.</p>
+  <div class="card" id="warmupQuiz"></div>
+</section>
+
+<!-- ==================== PHẦN 3: TYPES OF HOUSES ==================== -->
+<section class="slide" id="s3">
+  <h2>3. Vocabulary A – Types of Houses</h2>
+  <p class="muted">Nhấn vào từng thẻ để xem định nghĩa, nghĩa tiếng Việt và thông tin bổ sung.</p>
+  <div class="house-grid" id="houseGrid"></div>
+
+  <div class="card tint">
+    <h3 style="margin-top:0">🔎 So sánh nhanh: Detached – Semi-detached – Terraced</h3>
+    <table>
+      <tr><th>Loại nhà</th><th>Đặc điểm</th><th>Nghĩa tiếng Việt</th></tr>
+      <tr><td><b>Detached house</b></td><td>Not joined to any other house. (Đứng một mình, không chung tường)</td><td>Nhà riêng biệt</td></tr>
+      <tr><td><b>Semi-detached house</b></td><td>Joined to <b>one</b> other house. (Chung tường với <b>một</b> nhà)</td><td>Nhà song lập</td></tr>
+      <tr><td><b>Terraced house</b></td><td>Joined to <b>several</b> houses to form a row. (Chung tường thành một dãy)</td><td>Nhà liền kề (dãy)</td></tr>
+    </table>
+    <h3>🏠 Bungalow và nhà nhiều tầng</h3>
+    <p><b>Bungalow</b> = a house with only <b>one storey</b> (no upstairs). Các loại nhà còn lại thường có <b>hai tầng trở lên</b> (upstairs + downstairs).</p>
+    <p class="vn">💡 <b>storey</b> = tầng (số tầng của một toà nhà). Bungalow chỉ có <b>một tầng</b>, không có cầu thang lên tầng trên.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">🎮 Mini-game: Choose the Correct House</h3>
+    <p class="muted">Đọc định nghĩa và chọn loại nhà đúng.</p>
+    <div id="houseGame"></div>
+  </div>
+</section>
+
+<!-- ==================== PHẦN 4: PLACES IN THE HOME ==================== -->
+<section class="slide" id="s4">
+  <h2>4. Vocabulary B – Places in the Home</h2>
+  <p class="muted">Nhấn vào các vòng tròn số trên sơ đồ mặt cắt ngôi nhà để xem tên, định nghĩa và nghĩa tiếng Việt.</p>
+  <div class="card" style="padding:10px">
+    <div id="crossSection"></div>
+  </div>
+  <div class="place-detail" id="placeDetail">
+    <h3>👆 Chọn một vị trí trên sơ đồ</h3>
+    <p class="muted">Nhấn vào các số 1 – 11 để xem thông tin chi tiết của từng khu vực trong nhà.</p>
+  </div>
+
+  <h3>📚 Danh sách đầy đủ 12 từ vựng</h3>
+  <div class="place-list" id="placeList"></div>
+
+  <div class="card tint">
+    <h3 style="margin-top:0">⚠️ Phân biệt các cặp dễ nhầm</h3>
+    <table>
+      <tr><th>Cặp từ</th><th>Khác biệt</th></tr>
+      <tr><td><b>Cellar</b> / <b>Basement</b></td>
+        <td><b>Cellar</b>: below ground level, <b>no windows</b>, used for storing things.<br>
+            <b>Basement</b>: below ground level, <b>with windows</b>, for living/working.</td></tr>
+      <tr><td><b>Attic</b> / <b>Loft</b></td>
+        <td>Hai từ gần như đồng nghĩa: không gian trong mái nhà, dùng để chứa đồ hoặc cải tạo thành phòng ở
+            (attic/loft conversion).</td></tr>
+      <tr><td><b>Hall</b> / <b>Landing</b></td>
+        <td><b>Hall/hallway</b>: khu vực mở ngay khi bước vào nhà (tầng trệt).<br>
+            <b>Landing</b>: khu vực bằng phẳng ở <b>đầu cầu thang</b> (trên tầng).</td></tr>
+      <tr><td><b>Porch</b> / <b>Terrace – Patio</b></td>
+        <td><b>Porch</b>: khu vực <b>có mái che</b> ngay trước cửa ra vào.<br>
+            <b>Terrace / Patio</b>: khu vực <b>lát gạch</b> giữa nhà và vườn, để ngồi và ăn uống.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">✏️ Activity: Label the House</h3>
+    <p class="muted">Nhìn sơ đồ và chọn từ đúng cho mỗi vị trí được đánh số (1 – 5).</p>
+    <div id="labelDiagram" style="margin-bottom:12px"></div>
+    <div id="labelForm"></div>
+    <div class="quiz-actions">
+      <button class="btn primary" id="checkLabel">✔ Kiểm tra đáp án</button>
+      <button class="btn" id="resetLabel">↺ Làm lại</button>
+    </div>
+    <div id="labelResult"></div>
+  </div>
+</section>
+
+<!-- ==================== PHẦN 5: EVERYDAY OBJECTS ==================== -->
+<section class="slide" id="s5">
+  <h2>5. Vocabulary C – Everyday Objects in the Home</h2>
+  <div class="flexrow" style="margin-bottom:6px">
+    <button class="btn small" id="toggleVi">🙈 Ẩn nghĩa tiếng Việt</button>
+    <span class="muted">Bật chế độ này để tự kiểm tra trí nhớ. Di chuột / chạm vào ô mờ để xem lại.</span>
+  </div>
+  <div class="obj-grid" id="objGrid"></div>
+
+  <div class="card">
+    <h3 style="margin-top:0">🧩 Game: What Am I?</h3>
+    <p class="muted">Đọc câu đố về công dụng của đồ vật và chọn từ đúng.</p>
+    <div id="whatAmI"></div>
+  </div>
+</section>
+
+<!-- ==================== PHẦN 6: DO vs MAKE ==================== -->
+<section class="slide" id="s6">
+  <h2>6. Common Mistakes – Housework</h2>
+  <div class="card">
+    <h3 style="margin-top:0">✅ Dùng động từ <span style="color:#2e9e6b">DO</span> với các công việc nhà</h3>
+    <ul class="clean">
+      <li><b>do housework</b> – làm việc nhà</li>
+      <li><b>do the ironing</b> – là/ủi quần áo</li>
+      <li><b>do the hoovering</b> – hút bụi</li>
+      <li><b>do the washing-up</b> – rửa bát đĩa</li>
+    </ul>
+    <div class="note">
+      ⚠️ <b>KHÔNG</b> dùng <i>“make housework”</i>. Đây là lỗi rất phổ biến.<br>
+      <span class="muted">Trong tiếng Anh, các hoạt động <b>dọn dẹp – giặt giũ – rửa bát – hút bụi</b> luôn đi với <b>DO</b>.</span>
+    </div>
+    <h3>Ví dụ</h3>
+    <ul class="clean">
+      <li>I <b>do</b> the housework every weekend. <span class="muted">(Tôi làm việc nhà mỗi cuối tuần.)</span></li>
+      <li>She <b>does</b> the ironing in the evening. <span class="muted">(Cô ấy là quần áo vào buổi tối.)</span></li>
+      <li>He <b>does</b> the hoovering on Sundays. <span class="muted">(Anh ấy hút bụi vào Chủ nhật.)</span></li>
+      <li>We <b>do</b> the washing-up after dinner. <span class="muted">(Chúng tôi rửa bát sau bữa tối.)</span></li>
+    </ul>
+    <p class="vn">💡 Nhớ nhanh: <b>DO</b> + housework / the ironing / the hoovering / the washing-up.<br>
+       <b>MAKE</b> dùng cho việc <i>tạo ra</i> thứ gì đó: <i>make the bed, make a cake, make a mess</i>.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">📝 Bài tập: Chọn DO hay MAKE</h3>
+    <p class="muted">Chọn dạng đúng của động từ cho mỗi câu.</p>
+    <div id="doMakeQuiz"></div>
+  </div>
+</section>
+
+<!-- ==================== PHẦN 7: PRACTICE ==================== -->
+<section class="slide" id="s7">
+  <h2>7. Practice – Exercises 11.1 – 11.5</h2>
+
+  <!-- 11.1 -->
+  <div class="card">
+    <h3 style="margin-top:0">Exercise 11.1 – Where in a typical house would you look for the following things?</h3>
+    <p class="muted">Viết câu trả lời ngắn (ví dụ: <i>in the bathroom</i>). Có thể có nhiều đáp án hợp lý.</p>
+    <div id="ex111"></div>
+    <div class="quiz-actions">
+      <button class="btn primary" id="check111">✔ Kiểm tra</button>
+      <button class="btn" id="reset111">↺ Làm lại</button>
+    </div>
+    <div id="res111"></div>
+  </div>
+
+  <!-- 11.2 -->
+  <div class="card">
+    <h3 style="margin-top:0">Exercise 11.2 – Label the places in the house.</h3>
+    <p class="muted">Nhìn sơ đồ mặt cắt ngang và chọn tên đúng cho mỗi vị trí được đánh số.</p>
+    <div id="ex112diagram" style="margin-bottom:12px"></div>
+    <div id="ex112"></div>
+    <div class="quiz-actions">
+      <button class="btn primary" id="check112">✔ Kiểm tra</button>
+      <button class="btn" id="reset112">↺ Làm lại</button>
+    </div>
+    <div id="res112"></div>
+  </div>
+
+  <!-- 11.3 -->
+  <div class="card">
+    <h3 style="margin-top:0">Exercise 11.3 – Fill the gaps with a suitable word.</h3>
+    <p class="muted">Điền một từ phù hợp vào mỗi chỗ trống. Câu 1 đã được làm mẫu.</p>
+    <div id="ex113"></div>
+    <div class="quiz-actions">
+      <button class="btn primary" id="check113">✔ Kiểm tra</button>
+      <button class="btn" id="reset113">↺ Làm lại</button>
+    </div>
+    <div id="res113"></div>
+  </div>
+
+  <!-- 11.4 -->
+  <div class="card">
+    <h3 style="margin-top:0">Exercise 11.4 – Answer these questions about everyday objects.</h3>
+    <p class="muted">Trả lời ngắn gọn bằng tiếng Anh. Câu 1 đã được làm mẫu.</p>
+    <div id="ex114"></div>
+    <div class="quiz-actions">
+      <button class="btn primary" id="check114">✔ Kiểm tra</button>
+      <button class="btn" id="reset114">↺ Làm lại</button>
+    </div>
+    <div id="res114"></div>
+  </div>
+
+  <!-- 11.5 -->
+  <div class="card">
+    <h3 style="margin-top:0">Exercise 11.5 – Over to you</h3>
+    <p class="muted">Trả lời về chính bản thân em. Nhấn “Show Sample Answer” để xem câu trả lời mẫu.</p>
+    <div id="ex115"></div>
+  </div>
+</section>
+
+<!-- ==================== PHẦN 8: FINAL QUIZ ==================== -->
+<section class="slide" id="s8">
+  <h2>8. Final Quiz – 20 câu hỏi</h2>
+  <div class="card tint">
+    <p style="margin:0"><b>Hướng dẫn:</b> Bài kiểm tra gồm <b>20 câu trắc nghiệm</b> (5 câu về types of houses, 5 câu về places in the home,
+    5 câu về everyday objects, 5 câu về housework và ngữ cảnh). Thứ tự câu hỏi và phương án được <b>trộn ngẫu nhiên</b> mỗi lần làm bài.</p>
+    <p class="muted" id="bestScore" style="margin-bottom:0"></p>
+  </div>
+  <div id="finalQuiz"></div>
+  <div class="quiz-actions" id="finalActions" style="margin-top:16px">
+    <button class="btn primary big" id="submitFinal">📤 Nộp bài &amp; Xem điểm</button>
+    <button class="btn" id="retryFinal" style="display:none">🔄 Try Again</button>
+  </div>
+  <div id="finalResult"></div>
+</section>
+
+<!-- ==================== PHẦN 9: REVIEW & HOMEWORK ==================== -->
+<section class="slide" id="s9">
+  <h2>9. Review and Homework</h2>
+
+  <div class="card">
+    <h3 style="margin-top:0">📌 Tổng kết ba nhóm từ vựng chính</h3>
+    <table>
+      <tr><th>Nhóm</th><th>Từ vựng</th></tr>
+      <tr><td><b>1. Types of houses</b><br><span class="muted">Các loại nhà</span></td>
+        <td>detached house • terraced house • bungalow • semi-detached house • self-contained flat • cottage • studio flat • villa</td></tr>
+      <tr><td><b>2. Places in the home</b><br><span class="muted">Các khu vực trong nhà</span></td>
+        <td>master/main bedroom • utility room • shed • attic/loft • cellar • basement • studio • landing • hall/hallway • porch • terrace/patio • drive</td></tr>
+      <tr><td><b>3. Everyday objects in the home</b><br><span class="muted">Đồ vật trong nhà</span></td>
+        <td>remote (control) • corkscrew • phone charger • peeler • toilet roll • chopping board • (coat) hanger • ironing board • socket • dustpan and brush • grater • table mat</td></tr>
+    </table>
+    <p class="vn">💡 Ghi nhớ thêm: <b>do</b> the housework / the ironing / the hoovering / the washing-up — <b>KHÔNG</b> dùng <i>make housework</i>.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">🏠 Homework – Bài tập về nhà</h3>
+    <ol style="font-weight:600;color:#20456e">
+      <li>Viết <b>8 câu</b> sử dụng ít nhất <b>8 từ vựng</b> của bài học.</li>
+      <li>Mô tả ngôi nhà của bản thân bằng <b>5–7 câu</b> tiếng Anh.</li>
+      <li>Kể tên <b>5 công việc nhà</b> và sử dụng đúng cấu trúc <b>“do + household task”</b>.</li>
+    </ol>
+    <div class="note">
+      ✍️ <b>Gợi ý cho bài 2:</b> My house is a … . It has … bedrooms. There is a … in the garden.
+      I like … best because … .
+    </div>
+    <div class="note" style="background:#eaf3fd;border-left-color:#4a90d9">
+      ✍️ <b>Gợi ý cho bài 3:</b> I do the housework on Saturday morning. I do the washing-up after dinner.
+      My sister does the ironing. My father does the hoovering. We all do the gardening at the weekend.
+    </div>
+  </div>
+
+  <div class="card tint center">
+    <h3 style="margin-top:0">🎉 Chúc mừng em đã hoàn thành Unit 11 – At Home!</h3>
+    <p class="muted">Hãy quay lại bất cứ phần nào bằng thanh điều hướng ở trên để ôn tập thêm.</p>
+    <button class="btn primary" id="backHome">🏠 Về trang đầu</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="bottombar">
+  <button class="btn" id="btnHome">🏠 Home</button>
+  <button class="btn" id="btnPrev">← Previous</button>
+  <span id="progress">Phần 1/9</span>
+  <button class="btn primary" id="btnNext">Next →</button>
+</footer>
+
+<script>
+/* =========================================================================
+   UNIT 11 – AT HOME  |  Interactive E-Lesson
+   ========================================================================= */
+(function(){
+"use strict";
+
+/* ------------------------------------------------------------------ *
+ * 0. HELPERS
+ * ------------------------------------------------------------------ */
+const $  = (s, r) => (r||document).querySelector(s);
+const $$ = (s, r) => Array.prototype.slice.call((r||document).querySelectorAll(s));
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = s => (s||'').toString().toLowerCase().trim().replace(/\s+/g,' ').replace(/[.,!?;:]/g,'');
+const esc  = s => String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+/* ------------------------------------------------------------------ *
+ * 1. NAVIGATION
+ * ------------------------------------------------------------------ */
+const SLIDES = [
+  {id:'s1', label:'1. Welcome'},
+  {id:'s2', label:'2. Warm-up'},
+  {id:'s3', label:'3. Types of Houses'},
+  {id:'s4', label:'4. Places in the Home'},
+  {id:'s5', label:'5. Everyday Objects'},
+  {id:'s6', label:'6. Do vs Make'},
+  {id:'s7', label:'7. Practice'},
+  {id:'s8', label:'8. Final Quiz'},
+  {id:'s9', label:'9. Review'}
+];
+let cur = 0;
+
+function buildNav(){
+  const nav = $('#nav');
+  nav.innerHTML = '';
+  SLIDES.forEach((s,i)=>{
+    const b = document.createElement('button');
+    b.className = 'navbtn';
+    b.textContent = s.label;
+    b.onclick = ()=> goTo(i);
+    nav.appendChild(b);
+  });
+}
+
+function updateNavButtons(){
+  const prev = $('#btnPrev'), next = $('#btnNext');
+  if(prev) prev.disabled = (cur === 0);
+  if(next) next.disabled = (cur === SLIDES.length - 1);
+}
+
+function goTo(i){
+  if(i < 0 || i >= SLIDES.length) return;
+  cur = i;
+  $$('.slide').forEach((s,k)=> s.classList.toggle('active', k === i));
+  $$('.navbtn').forEach((b,k)=> b.classList.toggle('active', k === i));
+  $('#progress').textContent = 'Phần ' + (i+1) + '/' + SLIDES.length;
+  updateNavButtons();
+  try{ localStorage.setItem('u11_slide', String(i)); }catch(e){}
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ------------------------------------------------------------------ *
+ * 2. SVG ILLUSTRATIONS
+ * ------------------------------------------------------------------ */
+const wrap = (inner, vb) =>
+  '<svg viewBox="' + (vb || '0 0 200 150') + '" class="ill" xmlns="http://www.w3.org/2000/svg">' + inner + '</svg>';
+
+const HOUSE_SVG = {
+  detached: wrap(`
+    <rect width="200" height="150" fill="#eef7ff"/>
+    <rect y="118" width="200" height="32" fill="#d9f0d9"/>
+    <rect x="65" y="70" width="70" height="48" fill="#ffffff" stroke="#2c6cb0" stroke-width="2"/>
+    <polygon points="55,70 100,35 145,70" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="92" y="90" width="18" height="28" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="72" y="80" width="14" height="12" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="116" y="80" width="14" height="12" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="118" y="38" width="9" height="18" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="1.5"/>
+    <circle cx="28" cy="100" r="13" fill="#a8d8a8"/><rect x="25" y="110" width="6" height="12" fill="#b58b6a"/>
+    <circle cx="172" cy="100" r="13" fill="#a8d8a8"/><rect x="169" y="110" width="6" height="12" fill="#b58b6a"/>
+  `),
+  terraced: wrap(`
+    <rect width="200" height="150" fill="#eef7ff"/>
+    <rect y="118" width="200" height="32" fill="#d9f0d9"/>
+    <rect x="25" y="72" width="150" height="46" fill="#ffffff" stroke="#2c6cb0" stroke-width="2"/>
+    <polygon points="18,72 100,34 182,72" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/>
+    <line x1="75" y1="72" x2="75" y2="118" stroke="#2c6cb0" stroke-width="2"/>
+    <line x1="125" y1="72" x2="125" y2="118" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="42" y="92" width="14" height="26" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="92" y="92" width="14" height="26" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="142" y="92" width="14" height="26" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="58" y="80" width="12" height="10" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="108" y="80" width="12" height="10" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="158" y="80" width="12" height="10" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="30" y="46" width="8" height="16" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="162" y="46" width="8" height="16" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="1.5"/>
+  `),
+  semi: wrap(`
+    <rect width="200" height="150" fill="#eef7ff"/>
+    <rect y="118" width="200" height="32" fill="#d9f0d9"/>
+    <rect x="40" y="72" width="120" height="46" fill="#ffffff" stroke="#2c6cb0" stroke-width="2"/>
+    <polygon points="33,72 100,34 167,72" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/>
+    <line x1="100" y1="72" x2="100" y2="118" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="60" y="90" width="16" height="28" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="124" y="90" width="16" height="28" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="82" y="80" width="12" height="10" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="106" y="80" width="12" height="10" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="68" y="44" width="8" height="16" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="124" y="44" width="8" height="16" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="1.5"/>
+  `),
+  bungalow: wrap(`
+    <rect width="200" height="150" fill="#eef7ff"/>
+    <rect y="118" width="200" height="32" fill="#d9f0d9"/>
+    <rect x="35" y="82" width="130" height="36" fill="#ffffff" stroke="#2c6cb0" stroke-width="2"/>
+    <polygon points="25,82 100,44 175,82" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="88" y="94" width="20" height="24" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="52" y="94" width="20" height="14" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="128" y="94" width="20" height="14" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="140" y="48" width="9" height="16" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="1.5"/>
+    <circle cx="25" cy="108" r="9" fill="#a8d8a8"/><rect x="22" y="114" width="5" height="10" fill="#b58b6a"/>
+    <circle cx="176" cy="108" r="9" fill="#a8d8a8"/><rect x="173" y="114" width="5" height="10" fill="#b58b6a"/>
+  `),
+  selfFlat: wrap(`
+    <rect width="200" height="150" fill="#eef7ff"/>
+    <rect y="128" width="200" height="22" fill="#d9f0d9"/>
+    <rect x="58" y="16" width="84" height="112" fill="#ffffff" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="58" y="58" width="84" height="28" fill="#ffe9b8" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="68" y="26" width="20" height="16" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.2"/>
+    <rect x="112" y="26" width="20" height="16" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.2"/>
+    <rect x="68" y="96" width="20" height="16" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.2"/>
+    <rect x="112" y="96" width="20" height="16" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.2"/>
+    <text x="100" y="77" text-anchor="middle" font-size="9.5" fill="#8a6a1a" font-weight="700" font-family="sans-serif">self-contained</text>
+    <rect x="26" y="58" width="32" height="28" fill="#eaf3fd" stroke="#9ecdf5" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <rect x="142" y="58" width="32" height="28" fill="#eaf3fd" stroke="#9ecdf5" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <text x="42" y="75" text-anchor="middle" font-size="8" fill="#5b7ea6" font-family="sans-serif">other</text>
+    <text x="158" y="75" text-anchor="middle" font-size="8" fill="#5b7ea6" font-family="sans-serif">other</text>
+  `),
+  cottage: wrap(`
+    <rect width="200" height="150" fill="#eef7ff"/>
+    <rect y="118" width="200" height="32" fill="#d9f0d9"/>
+    <rect x="55" y="80" width="80" height="38" fill="#ffffff" stroke="#2c6cb0" stroke-width="2"/>
+    <path d="M43 80 Q95 40 147 80 Z" fill="#e8cfa0" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="118" y="50" width="10" height="20" fill="#d9b48f" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="84" y="92" width="20" height="26" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="62" y="90" width="16" height="12" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="112" y="90" width="16" height="12" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <circle cx="34" cy="110" r="8" fill="#a8d8a8"/><rect x="32" y="116" width="4" height="8" fill="#b58b6a"/>
+    <circle cx="166" cy="110" r="8" fill="#a8d8a8"/><rect x="164" y="116" width="4" height="8" fill="#b58b6a"/>
+  `),
+  studioFlat: wrap(`
+    <rect width="200" height="150" fill="#eef7ff"/>
+    <rect x="18" y="24" width="164" height="102" fill="#ffffff" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="18" y="24" width="106" height="102" fill="#eaf3fd" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="124" y="24" width="58" height="51" fill="#d9f0d9" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="124" y="75" width="58" height="51" fill="#ffe9b8" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="32" y="86" width="58" height="26" rx="3" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="36" y="89" width="16" height="10" rx="2" fill="#ffffff" stroke="#2c6cb0" stroke-width="1"/>
+    <circle cx="72" cy="46" r="11" fill="#ffffff" stroke="#2c6cb0" stroke-width="1.5"/>
+    <text x="72" y="68" text-anchor="middle" font-size="9" fill="#2c6cb0" font-weight="700" font-family="sans-serif">one room</text>
+    <text x="72" y="79" text-anchor="middle" font-size="8" fill="#5b7ea6" font-family="sans-serif">living + sleeping</text>
+    <text x="153" y="52" text-anchor="middle" font-size="8.5" fill="#1c6b47" font-weight="700" font-family="sans-serif">bathroom</text>
+    <text x="153" y="103" text-anchor="middle" font-size="8.5" fill="#8a6a1a" font-weight="700" font-family="sans-serif">kitchen</text>
+  `),
+  villa: wrap(`
+    <rect width="200" height="150" fill="#eef7ff"/>
+    <rect y="112" width="200" height="38" fill="#d9f0d9"/>
+    <rect x="45" y="64" width="110" height="48" fill="#ffffff" stroke="#2c6cb0" stroke-width="2"/>
+    <polygon points="38,64 100,32 162,64" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/>
+    <rect x="58" y="80" width="16" height="32" fill="#e6eef7" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="92" y="80" width="16" height="32" fill="#e6eef7" stroke="#2c6cb0" stroke-width="1.5"/>
+    <rect x="126" y="80" width="16" height="32" fill="#e6eef7" stroke="#2c6cb0" stroke-width="1.5"/>
+    <ellipse cx="100" cy="132" rx="46" ry="9" fill="#8fd3f4" stroke="#2c6cb0" stroke-width="1.2"/>
+    <path d="M176 112 L176 88" stroke="#b58b6a" stroke-width="4"/>
+    <path d="M176 90 q-18 -9 -23 3 q17 5 23 -3" fill="#6fbf6f"/>
+    <path d="M176 90 q18 -9 23 3 q-17 5 -23 -3" fill="#6fbf6f"/>
+    <path d="M176 90 q-5 -18 7 -22 q4 15 -7 22" fill="#6fbf6f"/>
+    <circle cx="22" cy="104" r="10" fill="#a8d8a8"/><rect x="20" y="112" width="5" height="10" fill="#b58b6a"/>
+  `)
+};
+
+const OBJ_SVG = {
+  remote: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><rect x="35" y="14" width="30" height="72" rx="9" fill="#fff" stroke="#2c6cb0" stroke-width="2.5"/><circle cx="50" cy="28" r="5" fill="#d9534f"/><rect x="41" y="41" width="18" height="6" rx="3" fill="#cfe4f8"/><rect x="41" y="53" width="18" height="6" rx="3" fill="#cfe4f8"/><rect x="41" y="65" width="18" height="6" rx="3" fill="#cfe4f8"/></svg>`,
+  corkscrew: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><rect x="41" y="12" width="18" height="26" rx="7" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/><path d="M50 38 C 62 46, 38 54, 50 62 C 62 70, 38 78, 50 86" fill="none" stroke="#8a8f98" stroke-width="4.5" stroke-linecap="round"/></svg>`,
+  charger: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><rect x="16" y="34" width="26" height="32" rx="6" fill="#fff" stroke="#2c6cb0" stroke-width="2.5"/><rect x="22" y="24" width="5" height="12" fill="#8a8f98"/><rect x="31" y="24" width="5" height="12" fill="#8a8f98"/><path d="M42 50 H 61" stroke="#2c6cb0" stroke-width="3"/><rect x="61" y="22" width="23" height="56" rx="6" fill="#fff" stroke="#2c6cb0" stroke-width="2.5"/><rect x="65" y="28" width="15" height="44" rx="3" fill="#cfe4f8"/></svg>`,
+  peeler: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><rect x="14" y="42" width="44" height="17" rx="8.5" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/><rect x="56" y="37" width="31" height="26" rx="5" fill="#dfe6ee" stroke="#2c6cb0" stroke-width="2"/><rect x="63" y="45" width="17" height="6" rx="3" fill="#9aa4b0"/></svg>`,
+  toiletRoll: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><rect x="30" y="26" width="40" height="50" rx="4" fill="#fff" stroke="#2c6cb0" stroke-width="2.5"/><ellipse cx="50" cy="26" rx="20" ry="8" fill="#eaf3fd" stroke="#2c6cb0" stroke-width="2.5"/><ellipse cx="50" cy="26" rx="7" ry="3.4" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/><path d="M70 44 q16 8 4 22" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round"/></svg>`,
+  choppingBoard: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><rect x="18" y="27" width="64" height="48" rx="10" fill="#f0d9b5" stroke="#b58b6a" stroke-width="2.5"/><circle cx="30" cy="38" r="4.5" fill="#eef7ff" stroke="#b58b6a" stroke-width="1.6"/><line x1="34" y1="57" x2="66" y2="57" stroke="#d9bd93" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+  hanger: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><path d="M50 20 q-9 0 -9 8 q0 6 9 9" fill="none" stroke="#8a8f98" stroke-width="3.4" stroke-linecap="round"/><path d="M50 37 L19 66 L81 66 Z" fill="none" stroke="#2c6cb0" stroke-width="3.2" stroke-linejoin="round"/><line x1="19" y1="66" x2="81" y2="66" stroke="#2c6cb0" stroke-width="3.2" stroke-linecap="round"/></svg>`,
+  ironingBoard: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><path d="M10 44 L76 38 Q90 38 88 48 L12 56 Z" fill="#dfe6ee" stroke="#2c6cb0" stroke-width="2.5" stroke-linejoin="round"/><line x1="30" y1="56" x2="23" y2="84" stroke="#8a8f98" stroke-width="3.2" stroke-linecap="round"/><line x1="66" y1="52" x2="73" y2="84" stroke="#8a8f98" stroke-width="3.2" stroke-linecap="round"/><line x1="23" y1="84" x2="73" y2="84" stroke="#8a8f98" stroke-width="3.2" stroke-linecap="round"/></svg>`,
+  socket: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><rect x="23" y="23" width="54" height="54" rx="9" fill="#fff" stroke="#2c6cb0" stroke-width="2.5"/><rect x="36" y="36" width="8" height="15" rx="4" fill="#1f3552"/><rect x="56" y="36" width="8" height="15" rx="4" fill="#1f3552"/><circle cx="50" cy="63" r="5" fill="#1f3552"/></svg>`,
+  dustpan: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><path d="M18 40 L54 40 L48 80 Q36 88 24 80 Z" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2.5" stroke-linejoin="round"/><rect x="16" y="32" width="42" height="9" rx="4.5" fill="#2c6cb0"/><rect x="66" y="24" width="10" height="42" rx="4" fill="#d9a066" stroke="#8a6a3a" stroke-width="1.5"/><rect x="60" y="62" width="22" height="18" rx="4" fill="#f0d9b5" stroke="#8a6a3a" stroke-width="1.5"/><line x1="64" y1="78" x2="64" y2="84" stroke="#8a6a3a" stroke-width="2"/><line x1="70" y1="78" x2="70" y2="84" stroke="#8a6a3a" stroke-width="2"/><line x1="76" y1="78" x2="76" y2="84" stroke="#8a6a3a" stroke-width="2"/></svg>`,
+  grater: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><rect x="28" y="18" width="36" height="64" rx="7" fill="#dfe6ee" stroke="#2c6cb0" stroke-width="2.5"/><circle cx="38" cy="31" r="3.2" fill="#9aa4b0"/><circle cx="54" cy="31" r="3.2" fill="#9aa4b0"/><circle cx="38" cy="45" r="3.2" fill="#9aa4b0"/><circle cx="54" cy="45" r="3.2" fill="#9aa4b0"/><circle cx="38" cy="59" r="3.2" fill="#9aa4b0"/><circle cx="54" cy="59" r="3.2" fill="#9aa4b0"/><rect x="64" y="34" width="18" height="11" rx="5.5" fill="#2c6cb0"/></svg>`,
+  tableMat: `<svg viewBox="0 0 100 100" class="ill"><rect width="100" height="100" rx="12" fill="#eef7ff"/><ellipse cx="50" cy="52" rx="35" ry="25" fill="#ffe9b8" stroke="#d9a066" stroke-width="2.5"/><ellipse cx="50" cy="52" rx="23" ry="15" fill="none" stroke="#d9a066" stroke-width="1.6" stroke-dasharray="5 5"/></svg>`
+};
+
+/* ------------------------------------------------------------------ *
+ * 3. DATA – VOCABULARY
+ * ------------------------------------------------------------------ */
+const HOUSES = [
+  {en:'Detached house', vi:'Nhà riêng biệt (đứng một mình)', def:'Not joined to any other house.',
+   tip:'Đây là loại nhà đứng hoàn toàn độc lập, bốn phía đều có khoảng trống. Khác với semi-detached (chung tường với 1 nhà) và terraced (chung tường thành dãy).', svg:HOUSE_SVG.detached},
+  {en:'Terraced house', vi:'Nhà liền kề (thành dãy)', def:'Joined to several houses to form a row.',
+   tip:'Các ngôi nhà được xây dính liền nhau thành một dãy dài, thường gặp ở các thành phố lớn.', svg:HOUSE_SVG.terraced},
+  {en:'Bungalow', vi:'Nhà một tầng', def:'A house with only one storey (no upstairs).',
+   tip:'Bungalow KHÔNG có cầu thang và không có tầng trên. Đây là điểm khác biệt với các loại nhà nhiều tầng khác.', svg:HOUSE_SVG.bungalow},
+  {en:'Semi-detached house', vi:'Nhà song lập', def:'Joined to one other house.',
+   tip:'“Semi” nghĩa là “một nửa”. Nhà chỉ chung tường với ĐÚNG MỘT ngôi nhà khác (khác với terraced – chung với nhiều nhà).', svg:HOUSE_SVG.semi},
+  {en:'Self-contained flat', vi:'Căn hộ khép kín', def:'A flat that does not share facilities with any other.',
+   tip:'Căn hộ có đầy đủ tiện nghi riêng (bếp, phòng tắm…), không phải dùng chung với căn hộ nào khác.', svg:HOUSE_SVG.selfFlat},
+  {en:'Cottage', vi:'Nhà nhỏ ở nông thôn / làng', def:'A small house in the country or in a village.',
+   tip:'Thường là nhà nhỏ, cổ kính, mái dốc, nằm ở nông thôn hoặc trong làng.', svg:HOUSE_SVG.cottage},
+  {en:'Studio flat', vi:'Căn hộ một phòng', def:'A small apartment, usually with one large room for sleeping and living in, a bathroom and sometimes a separate kitchen.',
+   tip:'Chỉ có một phòng chính dùng cho cả việc ngủ và sinh hoạt, kèm phòng tắm và đôi khi có bếp riêng.', svg:HOUSE_SVG.studioFlat},
+  {en:'Villa', vi:'Biệt thự', def:'A large house with big gardens, or a rented house in a holiday resort or tourist area.',
+   tip:'Có thể là biệt thự lớn có vườn rộng, hoặc nhà cho thuê ở khu nghỉ dưỡng / khu du lịch.', svg:HOUSE_SVG.villa}
+];
+
+const PLACES = [
+  {id:'bedroom', n:2, x:228, y:163, en:'Master / main bedroom', vi:'Phòng ngủ chính',
+   def:'The largest, most important bedroom.', tip:'Phòng ngủ lớn nhất, quan trọng nhất trong nhà.'},
+  {id:'utility', n:7, x:312, y:221, en:'Utility room', vi:'Phòng giặt / phòng phụ',
+   def:'A room usually used for a washing machine, freezer, etc.', tip:'Thường dùng để đặt máy giặt, tủ đông…'},
+  {id:'shed', n:9, x:517, y:212, en:'Shed', vi:'Nhà kho nhỏ ngoài vườn',
+   def:'A small building separated from the house, usually used for storing garden tools.', tip:'Nhà kho nhỏ tách khỏi nhà chính, để dụng cụ làm vườn.'},
+  {id:'attic', n:1, x:222, y:100, en:'Attic / Loft', vi:'Gác mái',
+   def:'A space in the roof of a house used for storage or converted into extra living space.', tip:'Không gian trong mái nhà; có thể cải tạo thành phòng ở (attic/loft conversion).'},
+  {id:'cellar', n:4, x:160, y:290, en:'Cellar', vi:'Hầm (không cửa sổ)',
+   def:'A room below ground level with no windows, used for storing things.', tip:'Nằm dưới mặt đất, KHÔNG có cửa sổ, dùng để chứa đồ (ví dụ: rượu vang).'},
+  {id:'basement', n:5, x:287, y:290, en:'Basement', vi:'Tầng hầm (có cửa sổ)',
+   def:'A room below ground level, with windows, used for living or working.', tip:'Nằm dưới mặt đất nhưng CÓ cửa sổ, có thể dùng để ở hoặc làm việc.'},
+  {id:'landing', n:3, x:140, y:163, en:'Landing', vi:'Chiếu nghỉ cầu thang',
+   def:'A flat area at the top of a staircase.', tip:'Khu vực bằng phẳng ở đầu cầu thang (trên tầng).'},
+  {id:'hall', n:6, x:140, y:216, en:'Hall / Hallway', vi:'Sảnh / lối vào nhà',
+   def:'An open area as you come into a house.', tip:'Khu vực mở ngay khi bước vào nhà.'},
+  {id:'porch', n:8, x:77, y:222, en:'Porch', vi:'Hiên có mái che trước cửa',
+   def:'A covered area before an entrance door.', tip:'Khu vực CÓ MÁI CHE ngay trước cửa ra vào.'},
+  {id:'terrace', n:10, x:415, y:239, en:'Terrace / Patio', vi:'Sân lát gạch',
+   def:'A paved area between a house and garden for sitting and eating.', tip:'Khu vực lát gạch giữa nhà và vườn, để ngồi ăn uống.'},
+  {id:'drive', n:11, x:30, y:239, en:'Drive', vi:'Lối xe vào nhà',
+   def:'A short road leading from the street to the house or garage, where you can drive or park.', tip:'Đường ngắn từ phố vào nhà/ga-ra, có thể đỗ xe.'}
+];
+
+const STUDIO_PLACE = {en:'Studio', vi:'Phòng làm việc của hoạ sĩ / nhiếp ảnh gia',
+  def:'A room in which a painter or photographer works.',
+  tip:'Lưu ý: “studio” ở đây là phòng làm việc của hoạ sĩ/nhiếp ảnh gia, khác với “studio flat” (căn hộ một phòng) ở phần A.'};
+
+const OBJECTS = [
+  {en:'Remote (control)', vi:'Điều khiển từ xa', use:'Dùng để bật/tắt TV, đổi kênh mà không cần rời ghế.', svg:OBJ_SVG.remote},
+  {en:'Corkscrew', vi:'Dụng cụ mở nút chai', use:'Dùng để mở nút bần của chai rượu vang.', svg:OBJ_SVG.corkscrew},
+  {en:'Phone charger', vi:'Bộ sạc điện thoại', use:'Dùng khi pin điện thoại hết (the battery is flat).', svg:OBJ_SVG.charger},
+  {en:'Peeler', vi:'Dụng cụ gọt vỏ', use:'Dùng để gọt vỏ khoai tây, cà rốt, hoa quả.', svg:OBJ_SVG.peeler},
+  {en:'Toilet roll', vi:'Cuộn giấy vệ sinh', use:'Đặt trong phòng tắm / nhà vệ sinh.', svg:OBJ_SVG.toiletRoll},
+  {en:'Chopping board', vi:'Thớt', use:'Dùng để thái rau củ mà không làm xước mặt bàn bếp.', svg:OBJ_SVG.choppingBoard},
+  {en:'(Coat) hanger', vi:'Móc treo quần áo', use:'Dùng để treo áo khoác, quần áo trong tủ.', svg:OBJ_SVG.hanger},
+  {en:'Ironing board', vi:'Bàn là (cầu là)', use:'Dùng để là/ủi quần áo.', svg:OBJ_SVG.ironingBoard},
+  {en:'Socket', vi:'Ổ cắm điện', use:'Nằm trên tường, dùng để cắm phích điện.', svg:OBJ_SVG.socket},
+  {en:'Dustpan and brush', vi:'Hót rác và chổi', use:'Dùng để quét dọn mảnh vỡ, bụi bẩn trên sàn.', svg:OBJ_SVG.dustpan},
+  {en:'Grater', vi:'Dụng cụ nạo / bào', use:'Dùng để bào nhỏ phô mai, cà rốt…', svg:OBJ_SVG.grater},
+  {en:'Table mat', vi:'Tấm lót bàn', use:'Đặt dưới nồi/ấm để không làm hỏng mặt bàn.', svg:OBJ_SVG.tableMat}
+];
+
+/* ------------------------------------------------------------------ *
+ * 4. DATA – QUIZZES
+ * ------------------------------------------------------------------ */
+const WARMUP = [
+  {q:'Which house is not joined to another house?',
+   options:['Detached house','Terraced house','Semi-detached house','Bungalow'], correct:0,
+   explain:'A <b>detached house</b> is not joined to any other house. (Terraced = joined to several; semi-detached = joined to one.)'},
+  {q:'Where do you keep garden tools?',
+   options:['Bedroom','Shed','Bathroom','Landing'], correct:1,
+   explain:'A <b>shed</b> is a small building separated from the house, usually used for storing garden tools.'},
+  {q:'What do you use to open a bottle of wine?',
+   options:['Grater','Peeler','Corkscrew','Hanger'], correct:2,
+   explain:'A <b>corkscrew</b> is used to open a bottle of wine.'}
+];
+
+const HOUSE_GAME = [
+  {q:'A house that is joined to several houses to form a row is a …',
+   options:['terraced house','detached house','bungalow','villa'], correct:0,
+   explain:'<b>Terraced house</b> = joined to several houses to form a row.'},
+  {q:'A house with only one storey (no upstairs) is a …',
+   options:['cottage','bungalow','villa','studio flat'], correct:1,
+   explain:'<b>Bungalow</b> = a house with only one storey.'},
+  {q:'A small house in the country or in a village is a …',
+   options:['cottage','terraced house','semi-detached house','self-contained flat'], correct:0,
+   explain:'<b>Cottage</b> = a small house in the country or in a village.'},
+  {q:'A flat that does not share facilities with any other is a …',
+   options:['studio flat','self-contained flat','villa','bungalow'], correct:1,
+   explain:'<b>Self-contained flat</b> = does not share facilities with any other.'},
+  {q:'A large house with big gardens, or a rented house in a holiday resort, is a …',
+   options:['cottage','shed','villa','terraced house'], correct:2,
+   explain:'<b>Villa</b> = a large house with big gardens, or a rented house in a holiday resort / tourist area.'}
+];
+
+const WHATAMI = [
+  {q:'I have a handle and a metal spiral. I open bottles of wine. What am I?',
+   options:['A corkscrew','A peeler','A grater','A socket'], correct:0,
+   explain:'<b>Corkscrew</b> – dụng cụ mở nút chai.'},
+  {q:'I have many small holes. I make very small pieces of cheese to sprinkle on a dish. What am I?',
+   options:['A chopping board','A grater','A table mat','A remote control'], correct:1,
+   explain:'<b>Grater</b> – dụng cụ nạo/bào thực phẩm.'},
+  {q:'I take the skin off potatoes and carrots. What am I?',
+   options:['A peeler','A corkscrew','A dustpan','An ironing board'], correct:0,
+   explain:'<b>Peeler</b> – dụng cụ gọt vỏ.'},
+  {q:'I give your phone new energy when the battery is flat. What am I?',
+   options:['A socket','A phone charger','A remote control','A hanger'], correct:1,
+   explain:'<b>Phone charger</b> – bộ sạc điện thoại.'},
+  {q:'I sweep up broken glass and dust on the floor. What am I?',
+   options:['A toilet roll','A table mat','A dustpan and brush','A chopping board'], correct:2,
+   explain:'<b>Dustpan and brush</b> – hót rác và chổi.'},
+  {q:'I change TV channels while you sit on the sofa. What am I?',
+   options:['A remote control','A phone charger','A socket','A corkscrew'], correct:0,
+   explain:'<b>Remote control</b> – điều khiển từ xa.'}
+];
+
+const DOMAKE = [
+  {q:'I ______ the housework every weekend.',
+   options:['do','make','does','makes'], correct:0,
+   explain:'<b>do the housework</b> – KHÔNG dùng “make housework”.'},
+  {q:'She ______ the ironing in the evening.',
+   options:['do','make','does','makes'], correct:2,
+   explain:'<b>do the ironing</b> – chủ ngữ số ít (she) nên dùng <b>does</b>.'},
+  {q:'He ______ the hoovering on Sundays.',
+   options:['do','make','does','makes'], correct:2,
+   explain:'<b>do the hoovering</b> – chủ ngữ số ít (he) nên dùng <b>does</b>.'},
+  {q:'We ______ the washing-up after dinner.',
+   options:['do','make','does','makes'], correct:0,
+   explain:'<b>do the washing-up</b> – chủ ngữ số nhiều (we) nên dùng <b>do</b>.'},
+  {q:'My brother ______ his bed every morning.',
+   options:['do','make','does','makes'], correct:3,
+   explain:'<b>make the bed</b> – chủ ngữ số ít (my brother) nên dùng <b>makes</b>.'}
+];
+
+const FINAL_QUESTIONS = [
+  /* --- 5 câu: Types of houses --- */
+  {q:'A house that is joined to one other house is a …',
+   options:['semi-detached house','detached house','terraced house','bungalow'], correct:'semi-detached house',
+   explain:'Semi-detached house = joined to ONE other house.'},
+  {q:'A house with only one storey is a …',
+   options:['bungalow','cottage','villa','terraced house'], correct:'bungalow',
+   explain:'Bungalow = a house with only one storey (no upstairs).'},
+  {q:'Which house is joined to several houses to form a row?',
+   options:['terraced house','detached house','semi-detached house','villa'], correct:'terraced house',
+   explain:'Terraced house = joined to several houses to form a row.'},
+  {q:'Which is a small house in the country or in a village?',
+   options:['cottage','bungalow','studio flat','basement'], correct:'cottage',
+   explain:'Cottage = a small house in the country or in a village.'},
+  {q:'A large house with big gardens, or a rented house in a holiday resort, is a …',
+   options:['villa','shed','porch','flat'], correct:'villa',
+   explain:'Villa = a large house with big gardens, or a rented house in a holiday resort / tourist area.'},
+
+  /* --- 5 câu: Places in the home --- */
+  {q:'The largest, most important bedroom is the …',
+   options:['master / main bedroom','utility room','landing','basement'], correct:'master / main bedroom',
+   explain:'Master / main bedroom = the largest, most important bedroom.'},
+  {q:'A room below ground level with NO windows, used for storing things, is a …',
+   options:['cellar','basement','attic','porch'], correct:'cellar',
+   explain:'Cellar = below ground level, no windows, used for storing things.'},
+  {q:'A room below ground level WITH windows, used for living or working, is a …',
+   options:['basement','cellar','loft','hall'], correct:'basement',
+   explain:'Basement = below ground level, with windows, for living/working.'},
+  {q:'A flat area at the top of a staircase is a …',
+   options:['landing','hall','porch','drive'], correct:'landing',
+   explain:'Landing = flat area at the top of a staircase.'},
+  {q:'A covered area before an entrance door is a …',
+   options:['porch','terrace','drive','shed'], correct:'porch',
+   explain:'Porch = covered area before an entrance door.'},
+
+  /* --- 5 câu: Everyday objects --- */
+  {q:'What do you use to open a bottle of wine?',
+   options:['A corkscrew','A peeler','A grater','A chopping board'], correct:'A corkscrew',
+   explain:'Corkscrew = dụng cụ mở nút chai.'},
+  {q:'What do you use to make very small pieces of cheese?',
+   options:['A grater','A peeler','A table mat','A socket'], correct:'A grater',
+   explain:'Grater = dụng cụ nạo/bào.'},
+  {q:'What do you need if your phone battery is flat?',
+   options:['A phone charger','A remote control','A hanger','A toilet roll'], correct:'A phone charger',
+   explain:'Phone charger = bộ sạc điện thoại.'},
+  {q:'What do you use to sweep up broken glass on the floor?',
+   options:['A dustpan and brush','A table mat','A chopping board','An ironing board'], correct:'A dustpan and brush',
+   explain:'Dustpan and brush = hót rác và chổi.'},
+  {q:'How can you switch off the TV without leaving your chair?',
+   options:['Use the remote control.','Use the socket.','Use the hanger.','Use the peeler.'], correct:'Use the remote control.',
+   explain:'Remote control = điều khiển từ xa.'},
+
+  /* --- 5 câu: Housework & context --- */
+  {q:'I ______ the housework every weekend.',
+   options:['do','make','does','makes'], correct:'do',
+   explain:'do the housework – KHÔNG dùng “make housework”.'},
+  {q:'She ______ the ironing in the evening.',
+   options:['does','do','make','makes'], correct:'does',
+   explain:'do the ironing – chủ ngữ số ít (she) → does.'},
+  {q:'We ______ the washing-up after dinner.',
+   options:['do','does','make','makes'], correct:'do',
+   explain:'do the washing-up – chủ ngữ số nhiều (we) → do.'},
+  {q:'He ______ the hoovering on Sundays.',
+   options:['does','do','make','makes'], correct:'does',
+   explain:'do the hoovering – chủ ngữ số ít (he) → does.'},
+  {q:'Which sentence is CORRECT?',
+   options:['I make the beds every morning.','I make the housework every weekend.','She makes the washing-up.','He makes the hoovering.'],
+   correct:'I make the beds every morning.',
+   explain:'“make the beds” là đúng. Nhưng phải nói <b>do</b> the housework / the washing-up / the hoovering.'}
+];
+
+/* ------------------------------------------------------------------ *
+ * 5. GENERIC STEP QUIZ (one question at a time)
+ * ------------------------------------------------------------------ */
+function stepQuiz(root, questions){
+  if(!root) return;
+  let i = 0, score = 0;
+
+  function render(){
+    if(i >= questions.length){
+      root.innerHTML =
+        '<div class="result-box">' +
+          '<div class="result-emoji">🎉</div>' +
+          '<h3>Hoàn thành phần luyện tập!</h3>' +
+          '<p class="score-big">' + score + ' / ' + questions.length + '</p>' +
+          '<p class="muted">' + (score === questions.length ? 'Xuất sắc! Em đã trả lời đúng tất cả.' : 'Hãy thử lại để cải thiện kết quả nhé.') + '</p>' +
+          '<button class="btn primary again-btn">🔄 Làm lại</button>' +
+        '</div>';
+      $('.again-btn', root).onclick = function(){ i = 0; score = 0; render(); };
+      return;
+    }
+    const q = questions[i];
+    let html = '<div class="quiz-top">Câu ' + (i+1) + ' / ' + questions.length + ' &nbsp;•&nbsp; Điểm: ' + score + '</div>';
+    html += '<div class="quiz-question">' + esc(q.q) + '</div><div class="opts">';
+    q.options.forEach(function(o,k){
+      html += '<button class="opt" data-k="' + k + '"><b>' + 'ABCD'[k] + '.</b> ' + esc(o) + '</button>';
+    });
+    html += '</div><div class="fb" hidden></div>';
+    html += '<div class="quiz-actions"><button class="btn primary next-btn" disabled>Next Question →</button></div>';
+    root.innerHTML = html;
+
+    const opts = $$('.opt', root);
+    const fb   = $('.fb', root);
+    const next = $('.next-btn', root);
+
+    opts.forEach(function(btn){
+      btn.onclick = function(){
+        opts.forEach(function(b){ b.disabled = true; });
+        const k = parseInt(btn.dataset.k, 10);
+        const ok = (k === q.correct);
+        if(ok){ btn.classList.add('correct'); score++; }
+        else { btn.classList.add('wrong'); opts[q.correct].classList.add('correct'); }
+        fb.hidden = false;
+        fb.className = 'fb ' + (ok ? 'good' : 'bad');
+        fb.innerHTML = (ok ? '✅ <b>Chính xác!</b> ' : '❌ <b>Chưa đúng.</b> ') + q.explain;
+        next.disabled = false;
+        next.focus();
+      };
+    });
+    next.onclick = function(){ i++; render(); };
+  }
+  render();
+}
+
+/* ------------------------------------------------------------------ *
+ * 6. SECTION 1 – HERO ILLUSTRATION
+ * ------------------------------------------------------------------ */
+$('#heroIll').innerHTML = wrap(`
+  <rect width="420" height="230" fill="#eaf3fd" rx="16"/>
+  <rect x="150" y="118" width="120" height="76" fill="#ffffff" stroke="#2c6cb0" stroke-width="2.5"/>
+  <polygon points="136,118 210,62 284,118" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2.5"/>
+  <rect x="192" y="148" width="30" height="46" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="2"/>
+  <rect x="158" y="136" width="24" height="20" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="2"/>
+  <rect x="238" y="136" width="24" height="20" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="2"/>
+  <rect x="252" y="66" width="14" height="26" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/>
+  <rect y="194" width="420" height="36" fill="#d9f0d9" rx="0"/>
+  <rect x="28" y="150" width="26" height="44" rx="8" fill="#fff" stroke="#2c6cb0" stroke-width="2"/>
+  <circle cx="41" cy="162" r="4" fill="#d9534f"/>
+  <rect x="34" y="172" width="14" height="5" rx="2.5" fill="#cfe4f8"/>
+  <rect x="34" y="182" width="14" height="5" rx="2.5" fill="#cfe4f8"/>
+  <rect x="72" y="152" width="28" height="42" rx="6" fill="#dfe6ee" stroke="#2c6cb0" stroke-width="2"/>
+  <circle cx="80" cy="164" r="2.6" fill="#9aa4b0"/><circle cx="92" cy="164" r="2.6" fill="#9aa4b0"/>
+  <circle cx="80" cy="176" r="2.6" fill="#9aa4b0"/><circle cx="92" cy="176" r="2.6" fill="#9aa4b0"/>
+  <rect x="118" y="150" width="14" height="20" rx="6" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/>
+  <path d="M125 170 C 134 176, 116 182, 125 188" fill="none" stroke="#8a8f98" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M300 176 L370 170 Q382 170 380 180 L302 188 Z" fill="#dfe6ee" stroke="#2c6cb0" stroke-width="2"/>
+  <line x1="318" y1="188" x2="312" y2="206" stroke="#8a8f98" stroke-width="2.6"/>
+  <line x1="358" y1="186" x2="364" y2="206" stroke="#8a8f98" stroke-width="2.6"/>
+  <line x1="312" y1="206" x2="364" y2="206" stroke="#8a8f98" stroke-width="2.6"/>
+  <line x1="330" y1="40" x2="330" y2="70" stroke="#8a8f98" stroke-width="2"/>
+  <path d="M312 70 L348 70 L340 92 L320 92 Z" fill="#ffe9b8" stroke="#2c6cb0" stroke-width="2"/>
+  <circle cx="44" cy="110" r="22" fill="#a8d8a8"/><rect x="39" y="130" width="10" height="24" fill="#b58b6a"/>
+  <circle cx="386" cy="104" r="20" fill="#a8d8a8"/><rect x="381" y="122" width="10" height="22" fill="#b58b6a"/>
+`, '0 0 420 230');
+
+/* ------------------------------------------------------------------ *
+ * 7. SECTION 3 – HOUSE CARDS
+ * ------------------------------------------------------------------ */
+(function buildHouseCards(){
+  const grid = $('#houseGrid');
+  HOUSES.forEach(function(h){
+    const card = document.createElement('div');
+    card.className = 'house-card';
+    card.innerHTML =
+      h.svg +
+      '<div class="house-name">' + esc(h.en) + '</div>' +
+      '<div class="house-vi">' + esc(h.vi) + '</div>' +
+      '<div class="house-more" hidden>' +
+        '<p><b>Definition:</b> ' + esc(h.def) + '</p>' +
+        '<p><b>Nghĩa:</b> ' + esc(h.vi) + '</p>' +
+        '<p class="tip">💡 ' + esc(h.tip) + '</p>' +
+      '</div>' +
+      '<div class="hint">👆 Nhấn để xem chi tiết</div>';
+    card.onclick = function(){
+      const more = $('.house-more', card);
+      more.hidden = !more.hidden;
+      card.classList.toggle('open', !more.hidden);
+      $('.hint', card).textContent = more.hidden ? '👆 Nhấn để xem chi tiết' : '👆 Nhấn để thu gọn';
+    };
+    grid.appendChild(card);
+  });
+})();
+
+/* ------------------------------------------------------------------ *
+ * 8. SECTION 4 – CROSS-SECTION DIAGRAM
+ * ------------------------------------------------------------------ */
+function crossSectionSVG(markers, opts){
+  opts = opts || {};
+  const showMarkers = markers || [];
+  const markerClass = 'marker' + (opts.static ? ' static' : '');
+  let m = '';
+  showMarkers.forEach(function(p){
+    m += '<g class="' + markerClass + '" data-id="' + p.id + '">' +
+           '<circle cx="' + p.x + '" cy="' + p.y + '" r="15" fill="#4a90d9" stroke="#ffffff" stroke-width="2.5"/>' +
+           '<text x="' + p.x + '" y="' + (p.y + 5.5) + '" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700" font-family="sans-serif">' + p.n + '</text>' +
+         '</g>';
+  });
+
+  return '<svg viewBox="0 0 560 340" class="cross" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect width="560" height="340" fill="#f0f8ff"/>' +
+    '<rect y="250" width="560" height="90" fill="#e8dcc8"/>' +
+    '<rect y="242" width="560" height="8" fill="#c9e8c9"/>' +
+    '<polygon points="85,135 222,65 360,135" fill="#dceaf7" stroke="#2c6cb0" stroke-width="2.5"/>' +
+    '<rect x="95" y="135" width="255" height="57" fill="#ffffff" stroke="#2c6cb0" stroke-width="2.5"/>' +
+    '<rect x="95" y="192" width="255" height="58" fill="#ffffff" stroke="#2c6cb0" stroke-width="2.5"/>' +
+    '<rect x="95" y="250" width="255" height="68" fill="#f7f2e8" stroke="#2c6cb0" stroke-width="2.5"/>' +
+    '<line x1="185" y1="135" x2="185" y2="192" stroke="#2c6cb0" stroke-width="2"/>' +
+    '<line x1="275" y1="135" x2="275" y2="192" stroke="#2c6cb0" stroke-width="2"/>' +
+    '<line x1="185" y1="192" x2="185" y2="250" stroke="#2c6cb0" stroke-width="2"/>' +
+    '<line x1="275" y1="192" x2="275" y2="250" stroke="#2c6cb0" stroke-width="2"/>' +
+    '<line x1="225" y1="250" x2="225" y2="318" stroke="#2c6cb0" stroke-width="2"/>' +
+    '<rect x="198" y="172" width="60" height="16" rx="4" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.4"/>' +
+    '<rect x="200" y="166" width="16" height="10" rx="3" fill="#ffffff" stroke="#2c6cb0" stroke-width="1.2"/>' +
+    '<line x1="198" y1="180" x2="258" y2="180" stroke="#2c6cb0" stroke-width="1.2"/>' +
+    '<rect x="288" y="172" width="50" height="18" rx="6" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.4"/>' +
+    '<line x1="288" y1="176" x2="338" y2="176" stroke="#2c6cb0" stroke-width="1"/>' +
+    '<path d="M100,248 L100,240 L114,240 L114,230 L128,230 L128,220 L142,220 L142,210 L156,210 L156,200 L170,200 L170,192" ' +
+      'fill="none" stroke="#2c6cb0" stroke-width="2.2"/>' +
+    '<rect x="190" y="234" width="80" height="14" fill="#e6eef7" stroke="#2c6cb0" stroke-width="1.4"/>' +
+    '<circle cx="212" cy="228" r="5" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.2"/>' +
+    '<rect x="286" y="220" width="34" height="28" rx="3" fill="#ffffff" stroke="#2c6cb0" stroke-width="1.6"/>' +
+    '<circle cx="303" cy="234" r="8" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.4"/>' +
+    '<rect x="130" y="288" width="9" height="22" rx="3" fill="#7fa8cf"/><rect x="132" y="282" width="5" height="8" fill="#7fa8cf"/>' +
+    '<rect x="148" y="292" width="9" height="18" rx="3" fill="#9ecdf5"/><rect x="150" y="286" width="5" height="8" fill="#9ecdf5"/>' +
+    '<rect x="252" y="254" width="24" height="14" rx="2" fill="#bfe3fb" stroke="#2c6cb0" stroke-width="1.4"/>' +
+    '<line x1="264" y1="254" x2="264" y2="268" stroke="#2c6cb0" stroke-width="1"/>' +
+    '<rect x="296" y="292" width="40" height="8" fill="#e6d8c3" stroke="#2c6cb0" stroke-width="1.2"/>' +
+    '<line x1="300" y1="300" x2="300" y2="312" stroke="#2c6cb0" stroke-width="1.6"/>' +
+    '<line x1="332" y1="300" x2="332" y2="312" stroke="#2c6cb0" stroke-width="1.6"/>' +
+    '<rect x="88" y="208" width="12" height="42" rx="2" fill="#c79a6b" stroke="#2c6cb0" stroke-width="1.4"/>' +
+    '<circle cx="97" cy="230" r="1.8" fill="#5b3f26"/>' +
+    '<polygon points="52,192 95,192 95,200 52,200" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2"/>' +
+    '<rect x="54" y="200" width="6" height="50" fill="#e6d8c8" stroke="#2c6cb0" stroke-width="1.5"/>' +
+    '<rect x="52" y="246" width="44" height="6" fill="#d9c9b0" stroke="#2c6cb0" stroke-width="1.2"/>' +
+    '<rect x="0" y="230" width="54" height="20" fill="#d8d8d8" stroke="#b0b0b0" stroke-width="1"/>' +
+    '<line x1="0" y1="240" x2="54" y2="240" stroke="#ffffff" stroke-width="2" stroke-dasharray="7 6"/>' +
+    '<rect x="358" y="232" width="112" height="18" fill="#e0d7c8" stroke="#b8ab97" stroke-width="1.4"/>' +
+    '<line x1="358" y1="241" x2="470" y2="241" stroke="#cbbfae" stroke-width="1"/>' +
+    '<line x1="395" y1="232" x2="395" y2="250" stroke="#cbbfae" stroke-width="1"/>' +
+    '<line x1="432" y1="232" x2="432" y2="250" stroke="#cbbfae" stroke-width="1"/>' +
+    '<rect x="480" y="185" width="72" height="59" fill="#ffffff" stroke="#2c6cb0" stroke-width="2.2"/>' +
+    '<polygon points="474,185 516,160 558,185" fill="#9ecdf5" stroke="#2c6cb0" stroke-width="2.2"/>' +
+    '<rect x="505" y="212" width="22" height="32" fill="#cfe4f8" stroke="#2c6cb0" stroke-width="1.5"/>' +
+    '<circle cx="523" cy="228" r="1.8" fill="#2c6cb0"/>' +
+    m +
+    (opts.hideText ? '' :
+      '<text x="225" y="112" text-anchor="middle" font-size="11" fill="#4a7fae" font-family="sans-serif">roof space</text>' +
+      '<text x="140" y="252" text-anchor="middle" font-size="11" fill="#4a7fae" font-family="sans-serif">ground level</text>'
+    ) +
+  '</svg>';
+}
+
+(function buildCrossSection(){
+  const host = $('#crossSection');
+  host.innerHTML = crossSectionSVG(PLACES);
+  const detail = $('#placeDetail');
+  const markers = $$('.marker', host);
+
+  function showPlace(id){
+    const p = PLACES.filter(function(x){ return x.id === id; })[0];
+    if(!p) return;
+    markers.forEach(function(mk){ mk.classList.toggle('sel', mk.dataset.id === id); });
+    detail.innerHTML =
+      '<h3>' + p.n + '. ' + esc(p.en) + '</h3>' +
+      '<p class="vn">🇻🇳 ' + esc(p.vi) + '</p>' +
+      '<p><b>Definition:</b> ' + esc(p.def) + '</p>' +
+      '<p class="tip">💡 ' + esc(p.tip) + '</p>';
+  }
+  markers.forEach(function(mk){
+    mk.addEventListener('click', function(){ showPlace(mk.dataset.id); });
+  });
+})();
+
+/* -------- Section 4: full word list -------- */
+(function buildPlaceList(){
+  const host = $('#placeList');
+  let html = '';
+  PLACES.slice().sort(function(a,b){ return a.n - b.n; }).forEach(function(p){
+    html += '<div class="place-item">' +
+      '<b>' + p.n + '. ' + esc(p.en) + '</b><br>' +
+      '<span class="vi">' + esc(p.vi) + '</span><br>' +
+      '<span class="muted">' + esc(p.def) + '</span>' +
+    '</div>';
+  });
+  html += '<div class="place-item">' +
+    '<b>★ Studio</b><br>' +
+    '<span class="vi">' + esc(STUDIO_PLACE.vi) + '</span><br>' +
+    '<span class="muted">' + esc(STUDIO_PLACE.def) + '</span><br>' +
+    '<span class="muted">💡 ' + esc(STUDIO_PLACE.tip) + '</span>' +
+  '</div>';
+  host.innerHTML = html;
+})();
+
+/* -------- Section 4: Label the House activity -------- */
+(function buildLabelActivity(){
+  const LABEL_ITEMS = [
+    {n:1, id:'attic',   x:222, y:100, ans:'Attic / Loft'},
+    {n:2, id:'bedroom', x:228, y:163, ans:'Master / main bedroom'},
+    {n:3, id:'landing', x:140, y:163, ans:'Landing'},
+    {n:4, id:'utility', x:312, y:221, ans:'Utility room'},
+    {n:5, id:'cellar',  x:160, y:290, ans:'Cellar'}
+  ];
+  const OPTIONS = ['Attic / Loft','Master / main bedroom','Landing','Utility room','Cellar',
+                   'Basement','Porch','Shed','Terrace / Patio','Drive'];
+
+  $('#labelDiagram').innerHTML = crossSectionSVG(LABEL_ITEMS, {hideText:true, static:true});
+
+  let html = '';
+  LABEL_ITEMS.forEach(function(it){
+    html += '<div class="ex-item"><span class="num">' + it.n + '</span>' +
+      '<select class="line" data-ans="' + esc(it.ans) + '" style="max-width:280px;display:inline-block" autocomplete="off">' +
+      '<option value="">-- Chọn đáp án --</option>';
+    OPTIONS.forEach(function(o){ html += '<option value="' + esc(o) + '">' + esc(o) + '</option>'; });
+    html += '</select></div>';
+  });
+  $('#labelForm').innerHTML = html;
+
+  $('#checkLabel').onclick = function(){
+    let right = 0;
+    const sels = $$('#labelForm select');
+    sels.forEach(function(s){
+      if(!s.value){ s.style.borderColor = '#cfe4f8'; s.style.background = '#fff'; return; }
+      if(s.value === s.dataset.ans){ s.style.borderColor = '#2e9e6b'; s.style.background = '#e4f7ed'; right++; }
+      else { s.style.borderColor = '#d9534f'; s.style.background = '#fdeaea'; }
+    });
+    $('#labelResult').innerHTML =
+      '<div class="fb ' + (right === sels.length ? 'good' : 'bad') + '" style="margin-top:12px">' +
+      '✅ Em đúng <b>' + right + '/' + sels.length + '</b> vị trí. ' +
+      'Đáp án đúng: 1 – Attic/Loft · 2 – Master/main bedroom · 3 – Landing · 4 – Utility room · 5 – Cellar.' +
+      '</div>';
+  };
+  $('#resetLabel').onclick = function(){
+    $$('#labelForm select').forEach(function(s){ s.value = ''; s.style.borderColor = '#cfe4f8'; s.style.background = '#fff'; });
+    $('#labelResult').innerHTML = '';
+  };
+})();
+
+/* ------------------------------------------------------------------ *
+ * 9. SECTION 5 – OBJECT CARDS + TOGGLE
+ * ------------------------------------------------------------------ */
+(function buildObjects(){
+  const grid = $('#objGrid');
+  OBJECTS.forEach(function(o){
+    const d = document.createElement('div');
+    d.className = 'obj-card';
+    d.innerHTML = o.svg +
+      '<div class="en">' + esc(o.en) + '</div>' +
+      '<div class="vi">' + esc(o.vi) + '</div>' +
+      '<div class="use">' + esc(o.use) + '</div>';
+    grid.appendChild(d);
+  });
+  const btn = $('#toggleVi');
+  btn.onclick = function(){
+    const hidden = grid.classList.toggle('hide-vi');
+    btn.textContent = hidden ? '👁 Hiện nghĩa tiếng Việt' : '🙈 Ẩn nghĩa tiếng Việt';
+  };
+})();
+
+/* ------------------------------------------------------------------ *
+ * 10. SECTION 7 – EXERCISES
+ * ------------------------------------------------------------------ */
+const EX111 = [
+  {q:'Garden tools', accept:['shed','garden shed'], ans:'in the shed (đã làm mẫu)', sample:true},
+  {q:'A toilet roll', accept:['bathroom','toilet','wc','lavatory'], ans:'in the bathroom'},
+  {q:'Table mats', accept:['kitchen','drawer','dining room','cupboard'], ans:'in a kitchen drawer / in the dining room'},
+  {q:'A hanger', accept:['wardrobe','closet','cupboard'], ans:'in the wardrobe'},
+  {q:'The remote', accept:['sofa','coffee table','living room','armchair','table'], ans:'on the sofa / on the coffee table'},
+  {q:'An ironing board', accept:['utility room','cupboard','kitchen','garage'], ans:'in the utility room'},
+  {q:'A socket', accept:['wall','on the wall'], ans:'on the wall'},
+  {q:'A porch', accept:['entrance','front door','outside','door'], ans:'at the entrance to the house'},
+  {q:'A grater', accept:['kitchen','drawer','cupboard'], ans:'in the kitchen'},
+  {q:'Old empty boxes', accept:['attic','loft','cellar','basement','garage','shed'], ans:'in the attic / loft'}
+];
+
+(function buildEx111(){
+  let html = '';
+  EX111.forEach(function(it, i){
+    if(it.sample){
+      html += '<div class="ex-item"><span class="num">' + (i+1) + '</span>' + esc(it.q) +
+        ' — <b style="color:#2e9e6b">' + esc(it.ans) + '</b></div>';
+    } else {
+      html += '<div class="ex-item"><span class="num">' + (i+1) + '</span>' + esc(it.q) +
+        ' — <input class="gap" data-i="' + i + '" placeholder="in / on the ..." autocomplete="off"></div>';
+    }
+  });
+  $('#ex111').innerHTML = html;
+
+  $('#check111').onclick = function(){
+    let right = 0, total = 0;
+    $$('#ex111 input.gap').forEach(function(inp){
+      const it = EX111[parseInt(inp.dataset.i, 10)];
+      total++;
+      const val = norm(inp.value);
+      if(!val){ inp.className = 'gap'; return; }
+      const ok = it.accept.some(function(a){ return val.indexOf(a) !== -1; });
+      if(ok){ inp.className = 'gap ok'; right++; }
+      else { inp.className = 'gap no'; }
+    });
+    const answered = $$('#ex111 input.gap').filter(function(i){ return i.value.trim() !== ''; }).length;
+    $('#res111').innerHTML =
+      '<div class="fb ' + (right === total ? 'good' : 'bad') + '" style="margin-top:12px">' +
+      'Em trả lời đúng <b>' + right + '/' + total + '</b> câu (đã nhập ' + answered + ' câu).<br>' +
+      '<b>Gợi ý đáp án:</b> toilet roll – in the bathroom · table mats – in a kitchen drawer / dining room · ' +
+      'a hanger – in the wardrobe · the remote – on the sofa / coffee table · an ironing board – in the utility room · ' +
+      'a socket – on the wall · a porch – at the entrance to the house · a grater – in the kitchen · ' +
+      'old empty boxes – in the attic / loft.' +
+      '</div>';
+  };
+  $('#reset111').onclick = function(){
+    $$('#ex111 input.gap').forEach(function(i){ i.value = ''; i.className = 'gap'; });
+    $('#res111').innerHTML = '';
+  };
+})();
+
+/* -------- Exercise 11.2 -------- */
+(function buildEx112(){
+  const ITEMS = [
+    {n:1, id:'attic',   x:222, y:100, ans:'Attic / Loft'},
+    {n:2, id:'bedroom', x:228, y:163, ans:'Master / main bedroom'},
+    {n:3, id:'landing', x:140, y:163, ans:'Landing'},
+    {n:4, id:'utility', x:312, y:221, ans:'Utility room'},
+    {n:5, id:'cellar',  x:160, y:290, ans:'Cellar'}
+  ];
+  const OPTIONS = ['Attic / Loft','Master / main bedroom','Landing','Utility room','Cellar',
+                   'Basement','Porch','Shed','Terrace / Patio','Drive'];
+
+  $('#ex112diagram').innerHTML = crossSectionSVG(ITEMS, {hideText:true, static:true});
+
+  let html = '';
+  ITEMS.forEach(function(it){
+    html += '<div class="ex-item"><span class="num">' + it.n + '</span>' +
+      '<select class="line" data-ans="' + esc(it.ans) + '" style="max-width:280px;display:inline-block" autocomplete="off">' +
+      '<option value="">-- Chọn đáp án --</option>';
+    OPTIONS.forEach(function(o){ html += '<option value="' + esc(o) + '">' + esc(o) + '</option>'; });
+    html += '</select></div>';
+  });
+  $('#ex112').innerHTML = html;
+
+  $('#check112').onclick = function(){
+    let right = 0;
+    const sels = $$('#ex112 select');
+    sels.forEach(function(s){
+      if(!s.value){ s.style.borderColor = '#cfe4f8'; s.style.background = '#fff'; return; }
+      if(s.value === s.dataset.ans){ s.style.borderColor = '#2e9e6b'; s.style.background = '#e4f7ed'; right++; }
+      else { s.style.borderColor = '#d9534f'; s.style.background = '#fdeaea'; }
+    });
+    $('#res112').innerHTML =
+      '<div class="fb ' + (right === sels.length ? 'good' : 'bad') + '" style="margin-top:12px">' +
+      'Đúng <b>' + right + '/' + sels.length + '</b>. Đáp án: 1 – Attic/Loft · 2 – Master/main bedroom · ' +
+      '3 – Landing · 4 – Utility room · 5 – Cellar.</div>';
+  };
+  $('#reset112').onclick = function(){
+    $$('#ex112 select').forEach(function(s){ s.value = ''; s.style.borderColor = '#cfe4f8'; s.style.background = '#fff'; });
+    $('#res112').innerHTML = '';
+  };
+})();
+
+/* -------- Exercise 11.3 -------- */
+(function buildEx113(){
+  const html = '' +
+  '<div class="ex-item"><span class="num">1</span>The old house had a big <b style="color:#2e9e6b">cellar</b> underneath it, where the family used to keep wine. <span class="muted">(đã làm mẫu)</span></div>' +
+  '<div class="ex-item"><span class="num">2</span>I’ll prepare the potatoes and then you can do the cooking. Where’s the <input class="gap" data-a="peeler" autocomplete="off">?</div>' +
+  '<div class="ex-item"><span class="num">3</span>Put a <input class="gap" data-a="table mat|tablemat|mat" autocomplete="off"> under the coffee pot in case you mark that table. It’s an antique.</div>' +
+  '<div class="ex-item"><span class="num">4</span>Let’s open this bottle. Do you know where the <input class="gap" data-a="corkscrew" autocomplete="off"> is?</div>' +
+  '<div class="ex-item"><span class="num">5</span>We keep our skis up in the <input class="gap" data-a="attic|loft" autocomplete="off">. They’re out of the way up there.</div>' +
+  '<div class="ex-item"><span class="num">6</span>You’ll find the garden chairs in the <input class="gap" data-a="shed" autocomplete="off"> at the bottom of the garden. ' +
+    'Bring them up and we’ll have a drink on the <input class="gap" data-a="terrace|patio" autocomplete="off"> and watch the sunset.</div>' +
+  '<div class="ex-item"><span class="num">7</span>The light switch for the stairs is on the <input class="gap" data-a="landing" autocomplete="off"> just by your bedroom door.</div>' +
+  '<div class="ex-item"><span class="num">8</span>Grandma’s moved to a <input class="gap" data-a="bungalow" autocomplete="off"> now she can’t manage the stairs any more at her age.</div>' +
+  '<div class="ex-item"><span class="num">9</span>Leave your car in the <input class="gap" data-a="drive|driveway" autocomplete="off">, just in front of the garage. It’ll be safe there.</div>';
+  $('#ex113').innerHTML = html;
+
+  function check(){
+    let right = 0, total = 0;
+    $$('#ex113 input.gap').forEach(function(inp){
+      total++;
+      const val = norm(inp.value);
+      if(!val){ inp.className = 'gap'; return; }
+      const accepts = inp.dataset.a.split('|');
+      const ok = accepts.some(function(a){ return val === norm(a); });
+      if(ok){ inp.className = 'gap ok'; right++; } else { inp.className = 'gap no'; }
+    });
+    $('#res113').innerHTML =
+      '<div class="fb ' + (right === total ? 'good' : 'bad') + '" style="margin-top:12px">' +
+      'Đúng <b>' + right + '/' + total + '</b> chỗ trống.<br>' +
+      '<b>Đáp án:</b> 2 – peeler · 3 – table mat · 4 – corkscrew · 5 – attic / loft · 6 – shed … terrace / patio · ' +
+      '7 – landing · 8 – bungalow · 9 – drive.</div>';
+  }
+  $('#check113').onclick = check;
+  $('#reset113').onclick = function(){
+    $$('#ex113 input.gap').forEach(function(i){ i.value = ''; i.className = 'gap'; });
+    $('#res113').innerHTML = '';
+  };
+})();
+
+/* -------- Exercise 11.4 -------- */
+(function buildEx114(){
+  const ITEMS = [
+    {n:1, q:'How can you make very small pieces of cheese to sprinkle on a dish?',
+     accept:['grater','use a grater'], sample:'Use a grater.', done:true},
+    {n:2, q:'What might you fetch if someone dropped a cup and it broke into small pieces on the floor?',
+     accept:['dustpan','brush','dustpan and brush'], sample:'A dustpan and brush.'},
+    {n:3, q:'What do you need if your phone battery is flat?',
+     accept:['charger','phone charger'], sample:'A phone charger.'},
+    {n:4, q:'How can you switch off the TV without leaving your chair?',
+     accept:['remote','remote control'], sample:'Use the remote control.'},
+    {n:5, q:'How can you cut vegetables without marking the kitchen work surface?',
+     accept:['chopping board','board'], sample:'Use a chopping board.'},
+    {n:6, q:'What might you offer a visitor if they want to take off their jacket?',
+     accept:['hanger','coat hanger'], sample:'A coat hanger.'}
+  ];
+  let html = '';
+  ITEMS.forEach(function(it){
+    if(it.done){
+      html += '<div class="ex-item"><span class="num">' + it.n + '</span>' + esc(it.q) +
+        '<br><b style="color:#2e9e6b">' + esc(it.sample) + '</b> <span class="muted">(đã làm mẫu)</span></div>';
+    } else {
+      html += '<div class="ex-item"><span class="num">' + it.n + '</span>' + esc(it.q) +
+        '<br><input class="line" data-i="' + it.n + '" placeholder="A ... / Use a ..." style="margin-top:7px" autocomplete="off"></div>';
+    }
+  });
+  $('#ex114').innerHTML = html;
+
+  $('#check114').onclick = function(){
+    let right = 0, total = 0;
+    $$('#ex114 input.line').forEach(function(inp){
+      const n = parseInt(inp.dataset.i, 10);
+      const it = ITEMS.filter(function(x){ return x.n === n; })[0];
+      total++;
+      const val = norm(inp.value);
+      if(!val){ inp.style.borderColor = '#cfe4f8'; inp.style.background = '#fff'; return; }
+      const ok = it.accept.some(function(a){ return val.indexOf(a) !== -1; });
+      if(ok){ inp.style.borderColor = '#2e9e6b'; inp.style.background = '#e4f7ed'; right++; }
+      else { inp.style.borderColor = '#d9534f'; inp.style.background = '#fdeaea'; }
+    });
+    $('#res114').innerHTML =
+      '<div class="fb ' + (right === total ? 'good' : 'bad') + '" style="margin-top:12px">' +
+      'Đúng <b>' + right + '/' + total + '</b> câu.<br>' +
+      '<b>Đáp án gợi ý:</b> 2 – A dustpan and brush. · 3 – A phone charger. · 4 – Use the remote control. · ' +
+      '5 – Use a chopping board. · 6 – A coat hanger.</div>';
+  };
+  $('#reset114').onclick = function(){
+    $$('#ex114 input.line').forEach(function(i){ i.value=''; i.style.borderColor='#cfe4f8'; i.style.background='#fff'; });
+    $('#res114').innerHTML = '';
+  };
+})();
+
+/* -------- Exercise 11.5 -------- */
+(function buildEx115(){
+  const ITEMS = [
+    {n:1, q:'Is your house detached? What sort is it if not?',
+     sample:'My house is not detached. It is a semi-detached house because it is joined to another house on one side.'},
+    {n:2, q:'Would you like to live in a studio flat? Why (not)?',
+     sample:'Yes, I would. A studio flat is usually small and affordable, so it would be suitable for a student like me. However, I might find it difficult to study and sleep in the same room.'},
+    {n:3, q:'Which of these household jobs do you most enjoy and which do you least enjoy – doing the washing-up / the washing / the ironing / the gardening / the hoovering / the dusting / the cooking?',
+     sample:'I enjoy cooking the most because I can prepare my favourite dishes. However, I dislike doing the ironing because it takes time and can be tiring. I don’t mind doing the washing-up because it helps me keep the kitchen clean.'}
+  ];
+  let html = '';
+  ITEMS.forEach(function(it){
+    html += '<div class="ex-item"><span class="num">' + it.n + '</span>' + esc(it.q) +
+      '<textarea placeholder="Viết câu trả lời của em bằng tiếng Anh..." style="margin-top:8px"></textarea>' +
+      '<button class="btn small" data-sample="' + it.n + '" style="margin-top:8px">💡 Show Sample Answer</button>' +
+      '<div class="sample" id="sample' + it.n + '" hidden>' + esc(it.sample) + '</div>' +
+    '</div>';
+  });
+  $('#ex115').innerHTML = html;
+
+  $$('#ex115 button[data-sample]').forEach(function(b){
+    b.onclick = function(){
+      const box = $('#sample' + b.dataset.sample);
+      box.hidden = !box.hidden;
+      b.textContent = box.hidden ? '💡 Show Sample Answer' : '🙈 Hide Sample Answer';
+    };
+  });
+})();
+
+/* ------------------------------------------------------------------ *
+ * 11. SECTION 8 – FINAL QUIZ
+ * ------------------------------------------------------------------ */
+let finalState = null;
+
+function renderFinalQuiz(){
+  const host = $('#finalQuiz');
+  const qs = shuffle(FINAL_QUESTIONS).map(function(q){
+    const opts = shuffle(q.options);
+    return {q:q.q, options:opts, correct:q.correct, explain:q.explain};
+  });
+  finalState = {questions:qs, answers:new Array(qs.length).fill(null), submitted:false};
+
+  let html = '';
+  qs.forEach(function(q, i){
+    html += '<div class="card qcard" data-i="' + i + '">' +
+      '<div class="quiz-top">Câu ' + (i+1) + ' / ' + qs.length + '</div>' +
+      '<div class="quiz-question">' + esc(q.q) + '</div><div class="opts">';
+    q.options.forEach(function(o){
+      html += '<button class="opt" data-i="' + i + '" data-v="' + esc(o) + '">' + esc(o) + '</button>';
+    });
+    html += '</div><div class="fb" hidden></div></div>';
+  });
+  host.innerHTML = html;
+
+  $$('#finalQuiz .opt').forEach(function(btn){
+    btn.onclick = function(){
+      if(finalState.submitted) return;
+      const i = parseInt(btn.dataset.i, 10);
+      finalState.answers[i] = btn.dataset.v;
+      $$('#finalQuiz .qcard[data-i="' + i + '"] .opt').forEach(function(b){
+        b.style.borderColor = '#cfe4f8';
+        b.style.background = '#fff';
+        b.style.fontWeight = '';
+      });
+      btn.style.borderColor = '#4a90d9';
+      btn.style.background = '#eaf3fd';
+      btn.style.fontWeight = '700';
+    };
+  });
+}
+
+function submitFinalQuiz(){
+  if(!finalState) return;
+  const unanswered = finalState.answers.filter(function(a){ return a === null; }).length;
+  if(unanswered > 0){
+    const ok = window.confirm('Em còn ' + unanswered + ' câu chưa trả lời. Vẫn nộp bài?');
+    if(!ok) return;
+  }
+  finalState.submitted = true;
+  let score = 0;
+
+  finalState.questions.forEach(function(q, i){
+    const card = $('#finalQuiz .qcard[data-i="' + i + '"]');
+    const opts = $$('.opt', card);
+    const picked = finalState.answers[i];
+    opts.forEach(function(b){
+      b.disabled = true;
+      if(b.dataset.v === q.correct) b.classList.add('correct');
+      else if(b.dataset.v === picked) b.classList.add('wrong');
+      b.style.borderColor = '';
+      b.style.background = '';
+      b.style.fontWeight = '';
+    });
+    if(picked === q.correct) score++;
+    const fb = $('.fb', card);
+    fb.hidden = false;
+    fb.className = 'fb ' + (picked === q.correct ? 'good' : 'bad');
+    fb.innerHTML = (picked === q.correct ? '✅ <b>Chính xác!</b> ' : '❌ <b>Chưa đúng.</b> ') +
+      'Đáp án đúng: <b>' + esc(q.correct) + '</b>. ' + q.explain;
+  });
+
+  const pct = Math.round(score / finalState.questions.length * 100);
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem('u11_best') || '0', 10) || 0; }catch(e){}
+  if(score > best){ best = score; try{ localStorage.setItem('u11_best', String(best)); }catch(e){} }
+
+  $('#finalResult').innerHTML =
+    '<div class="card center" style="border-color:#4a90d9;border-width:2px">' +
+      '<div class="result-emoji">' + (pct >= 80 ? '🏆' : pct >= 50 ? '👍' : '💪') + '</div>' +
+      '<h3 style="margin:.3em 0">Kết quả bài kiểm tra</h3>' +
+      '<p class="score-big">' + score + ' / ' + finalState.questions.length + ' &nbsp;(' + pct + '%)</p>' +
+      '<p class="muted">Số câu đúng: <b>' + score + '</b> · Số câu sai: <b>' + (finalState.questions.length - score) + '</b>' +
+      ' · Điểm cao nhất của em: <b>' + best + '/' + finalState.questions.length + '</b></p>' +
+      '<p class="muted">Xem giải thích chi tiết ngay bên dưới mỗi câu hỏi.</p>' +
+    '</div>';
+
+  $('#submitFinal').style.display = 'none';
+  $('#retryFinal').style.display = 'inline-block';
+  updateBestLabel();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateBestLabel(){
+  let best = 0;
+  try{ best = parseInt(localStorage.getItem('u11_best') || '0', 10) || 0; }catch(e){}
+  $('#bestScore').textContent = best > 0
+    ? '🏅 Điểm cao nhất đã lưu trên thiết bị này: ' + best + '/20'
+    : '🏅 Em chưa làm bài kiểm tra lần nào.';
+}
+
+/* ------------------------------------------------------------------ *
+ * 12. INIT
+ * ------------------------------------------------------------------ */
+function init(){
+  buildNav();
+
+  /* Section 2 */
+  stepQuiz($('#warmupQuiz'), WARMUP);
+  /* Section 3 */
+  stepQuiz($('#houseGame'), HOUSE_GAME);
+  /* Section 5 */
+  stepQuiz($('#whatAmI'), WHATAMI);
+  /* Section 6 */
+  stepQuiz($('#doMakeQuiz'), DOMAKE);
+
+  /* Section 8 */
+  renderFinalQuiz();
+  updateBestLabel();
+
+  $('#submitFinal').onclick = submitFinalQuiz;
+  $('#retryFinal').onclick = function(){
+    $('#finalResult').innerHTML = '';
+    $('#submitFinal').style.display = 'inline-block';
+    $('#retryFinal').style.display = 'none';
+    renderFinalQuiz();
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+
+  /* Navigation buttons */
+  $('#btnPrev').onclick = function(){ goTo(cur - 1); };
+  $('#btnNext').onclick = function(){ goTo(cur + 1); };
+  $('#btnHome').onclick = function(){ goTo(0); };
+  $('#startBtn').onclick = function(){ goTo(1); };
+  $('#backHome').onclick = function(){ goTo(0); };
+
+  /* Keyboard navigation */
+  document.addEventListener('keydown', function(e){
+    const tag = (e.target.tagName || '').toLowerCase();
+    if(tag === 'input' || tag === 'textarea' || tag === 'select') return;
+    if(e.key === 'ArrowRight') goTo(cur + 1);
+    if(e.key === 'ArrowLeft')  goTo(cur - 1);
+  });
+
+  /* Restore last position */
+  let saved = 0;
+  try{ saved = parseInt(localStorage.getItem('u11_slide') || '0', 10) || 0; }catch(e){}
+  if(saved < 0 || saved >= SLIDES.length) saved = 0;
+  goTo(saved);
+}
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+})();
+</script>
+</body>
+</html>
